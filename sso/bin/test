@@ -8,5 +8,5 @@ if [ "$1" = "-h" -o "$1" = "--help" ]; then
     exit 0
 fi
 
-echo "Running tests"
-docker-compose run --no-deps --rm sso go test
+echo "Running tests..."
+docker-compose run --no-deps --rm sso go test ./...

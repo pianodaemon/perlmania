@@ -19,7 +19,6 @@ type Settings struct {
 var settings Settings = Settings{}
 
 func Init() {
-	// This is error prone...
 	delta, _ := strconv.Atoi(os.Getenv("EXP_DELTA"))
 	db_port, _ := strconv.Atoi(os.Getenv("POSTGRES_PORT"))
 
@@ -33,10 +32,20 @@ func Init() {
 		DatabasePort:       db_port,
 		JWTExpirationDelta: delta,
 	}
+
+	if settings.PrivateKeyPath == "" {
+		panic("Missing PRIVATE_KEY env variable")
+	}
+
+	if settings.PublicKeyPath == "" {
+		panic("Missing PUBLIC_KEY env variable")
+	}
 }
+
 func Get() Settings {
 	if &settings == nil {
 		Init()
 	}
+
 	return settings
 }
