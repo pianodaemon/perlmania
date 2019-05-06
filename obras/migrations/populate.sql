@@ -22,3 +22,11 @@ INSERT INTO departments(id, title, description) VALUES (10, 'FUNDIDORA', 'NO DIS
 INSERT INTO departments(id, title, description) VALUES (11, 'CONALEP', 'NO DISPONIBLE');
 INSERT INTO departments(id, title, description) VALUES (12, 'CAMINOS', 'NO DISPONIBLE');
 INSERT INTO departments(id, title, description) VALUES (13, 'ISSSTELEON', 'NO DISPONIBLE');
+
+INSERT INTO check_stages(id, title, description) VALUES (1, 'TERMINADAS', 'NO DISPONIBLE');
+INSERT INTO check_stages(id, title, description) VALUES (2, 'EN TIEMPO', 'NO DISPONIBLE');
+INSERT INTO check_stages(id, title, description) VALUES (3, 'CON RETRASO', 'NO DISPONIBLE');
+INSERT INTO check_stages(id, title, description) VALUES (4, 'RESCINDIDAS', 'NO DISPONIBLE');
+INSERT INTO check_stages(id, title, description) VALUES (5, 'NO INICIADAS', 'NO DISPONIBLE');
+INSERT INTO check_stages(id, title, description) VALUES (6, 'CON AVANCE FINANCIERO MAYOR AL FÍSICO', 'NO DISPONIBLE');
+INSERT INTO check_stages(id, title, description) VALUES (7, 'DE FUERZA CIVIL, POLICÍA  Y PENALES', 'NO DISPONIBLE');
