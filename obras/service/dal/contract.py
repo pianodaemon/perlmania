@@ -86,13 +86,7 @@ def _setup_criteria(**kwsearch):
         v = kwsearch.get(k, None)
         if v is None:
             continue
-        yield SlackFilterTxt(v)
-
-    interval_buffer = (None, None)
-    for idx, k in enumerate('kickoff', 'ending'):
-        interval_buffer[idx] = kwsearch.get(k, None)
-        if all(interval_buffer):
-            yield SlackFilterInterval(*interval_buffer)
+        yield "contracts.{} ILIKE '%{}%'".format(k, v)
 
 
 def create(**kwargs):
@@ -119,7 +113,7 @@ def find(contract_id):
 
 
 def page(page_number, page_size, order_by, asc, **kwsearch):
-    search_criteria = set([for k in _setup_criteria(**kwsearch)])
+    search_criteria = set([c for c in _setup_criteria(**kwsearch)])
     rows = page_entities("contracts", page_number, page_size,
                          order_by, asc, search_criteria)
 
@@ -128,5 +122,5 @@ def page(page_number, page_size, order_by, asc, **kwsearch):
 
 def count(**kwsearch):
     """Number of non logical deleted contracts"""
-    search_criteria = set([for k in _setup_criteria(**kwsearch)])
+    search_criteria = set([c for c in _setup_criteria(**kwsearch)])
     return count_entities("contracts", search_criteria)

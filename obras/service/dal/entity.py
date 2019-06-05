@@ -9,8 +9,8 @@ def count_entities(entity_table, search_criteria=None):
         entity_table
     )
 
-    if search_criteria is not None:
-        q += " {0} AND {1} ".format(
+    if search_criteria:
+        q = " {0} AND {1} ".format(
              q, " AND ".join([c for c in search_criteria])
         )
 
@@ -62,8 +62,8 @@ def page_entities(entity_table, page_number, page_size, order_by, asc, search_cr
         entity_table
     )
 
-    if search_criteria is not None:
-        q += " {0} AND {1} ".format(
+    if search_criteria:
+        q = " {0} AND {1} ".format(
              q, " AND ".join([c for c in search_criteria])
         )
 
