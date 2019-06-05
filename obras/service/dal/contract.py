@@ -109,6 +109,27 @@ def page(page_number, page_size, order_by, asc):
     return [_marshall(entity) for entity in rows]
 
 
-def count():
+def _setup_search(**kwargs):
+    """Incepts filters as per search requirement"""
+    txt_filters = ('title', 'contract', 'description')
+    for k in txt_filters:
+        v = kwargs.get(k, None)
+        if v is None:
+            continue
+        yield SlackFilterTxt(v)
+
+    interval_filter = ('kickoff', 'ending')
+    interval_buffer = (None, None)
+    for idx, k in enumerate(interval_filter):
+        v = kwargs.get(k, None)
+        if v is None:
+            break
+        interval_buffer[idx] = v
+        if all(interval_buffer):
+            yield SlackFilterInterval(*interval_buffer)
+
+
+def count(**kwargs):
     """Number of non logical deleted contracts"""
-    return count_entities("contracts")
+    search_criteria = set([for k in _setup_search(**kwargs)])
+    return count_entities("contracts", search_criteria)
