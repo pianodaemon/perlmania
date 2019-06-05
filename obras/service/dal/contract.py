@@ -80,6 +80,21 @@ def _alter_contract(**kwargs):
     return run_store_procedure(sql)
 
 
+def _setup_criteria(**kwsearch):
+    """Incepts filters as per search requirement"""
+    for k in ('title', 'contract', 'description'):
+        v = kwsearch.get(k, None)
+        if v is None:
+            continue
+        yield SlackFilterTxt(v)
+
+    interval_buffer = (None, None)
+    for idx, k in enumerate('kickoff', 'ending'):
+        interval_buffer[idx] = kwsearch.get(k, None)
+        if all(interval_buffer):
+            yield SlackFilterInterval(*interval_buffer)
+
+
 def create(**kwargs):
     """Creates a contract entity"""
     kwargs["id"] = 0
@@ -103,33 +118,15 @@ def find(contract_id):
     return _marshall(entity)
 
 
-def page(page_number, page_size, order_by, asc):
-    rows = page_entities("contracts", page_number, page_size, order_by, asc)
+def page(page_number, page_size, order_by, asc, **kwsearch):
+    search_criteria = set([for k in _setup_criteria(**kwsearch)])
+    rows = page_entities("contracts", page_number, page_size,
+                         order_by, asc, search_criteria)
 
     return [_marshall(entity) for entity in rows]
 
 
-def _setup_search(**kwargs):
-    """Incepts filters as per search requirement"""
-    txt_filters = ('title', 'contract', 'description')
-    for k in txt_filters:
-        v = kwargs.get(k, None)
-        if v is None:
-            continue
-        yield SlackFilterTxt(v)
-
-    interval_filter = ('kickoff', 'ending')
-    interval_buffer = (None, None)
-    for idx, k in enumerate(interval_filter):
-        v = kwargs.get(k, None)
-        if v is None:
-            break
-        interval_buffer[idx] = v
-        if all(interval_buffer):
-            yield SlackFilterInterval(*interval_buffer)
-
-
-def count(**kwargs):
+def count(**kwsearch):
     """Number of non logical deleted contracts"""
-    search_criteria = set([for k in _setup_search(**kwargs)])
+    search_criteria = set([for k in _setup_criteria(**kwsearch)])
     return count_entities("contracts", search_criteria)
