@@ -1,13 +1,19 @@
 from .helper import exec_steady, update_steady
 
 
-def count_entities(entity_table):
+def count_entities(entity_table, search_criteria=None):
     """Counts the entities non blocked"""
     q = """SELECT count(id)::int as total
            FROM {}
-           WHERE blocked = false""".format(
+           WHERE blocked = false """.format(
         entity_table
     )
+
+    if search_criteria is not None:
+        q += " {0} AND {1} ".format(
+             q, " AND ".join([c for c in search_criteria])
+        )
+
     r = exec_steady(q)
 
     # For this case we are just expecting one row
@@ -49,14 +55,23 @@ def find_entity(entity_table, entity_id):
     return r.pop()
 
 
-def page_entities(entity_table, page_number, page_size, order_by, asc):
+def page_entities(entity_table, page_number, page_size, order_by, asc, search_criteria=None):
     q = """SELECT *
            FROM {}
-           WHERE blocked = false
-           ORDER BY {} {}
-           LIMIT {} OFFSET {}""".format(
-        entity_table, order_by, asc, page_size, page_number
+           WHERE blocked = false """.format(
+        entity_table
     )
+
+    if search_criteria is not None:
+        q += " {0} AND {1} ".format(
+             q, " AND ".join([c for c in search_criteria])
+        )
+
+    q += """ORDER BY {} {}
+            LIMIT {} OFFSET {}""".format(
+         order_by, asc, page_size, page_number
+    )
+
     r = exec_steady(q)
 
     if len(r) == 0:
