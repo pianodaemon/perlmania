@@ -16,6 +16,15 @@ model = api.model(
         "delivery_stage": fields.Integer(
             required=True, description="Delivery stage of contract"
         ),
+        "adjudication": fields.Integer(
+            required=True, description="Type of the process of adjudication"
+        ),
+        "funding": fields.Integer(
+            required=True, description="Type of funding used for the project"
+        ),
+        "program": fields.Integer(
+            required=True, description="Program to which the project belongs to"
+        ),
         "initial_contracted_amount": fields.Float(
             required=True, description="Initial contracted amount of contract"
         ),
@@ -58,6 +67,9 @@ def _alter_contract(**kwargs):
         '{}'::text,
         {}::integer,
         {}::integer,
+        {}::integer,
+        {}::integer,
+        {}::integer,
         {}::double precision,
         '{}'::date,
         '{}'::date,
@@ -76,6 +88,9 @@ def _alter_contract(**kwargs):
         kwargs["description"],
         kwargs["provider"],
         kwargs["delivery_stage"],
+        kwargs["adjudication"],
+        kwargs["funding"],
+        kwargs["program"],
         kwargs["initial_contracted_amount"],
         kwargs["kickoff"],
         kwargs["ending"],

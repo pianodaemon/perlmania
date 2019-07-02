@@ -78,11 +78,21 @@ class ProjectsWithFollowUpCollection(Resource):
     @api.param("contract", "Contract DB id")
     @api.param("category", "Category id")
     @api.param("department", "Department id")
+    @api.param("city", "The municipality catalog id")
     @api.param("check_stage", "Stage id")
+    @api.param("adjudication", "Adjudication process catalog id")
+    @api.param("funding", "Type of funding catalog id")
+    @api.param("program", "Type of program catalog id")
+    @api.param(
+        "empty_follow_ups", "Wheter or not to include records without any follow ups"
+    )
     @api.marshal_with(project_follow_ups_model)
     def get(self):
         offset = request.args.get("offset", 0)
         limit = request.args.get("limit", 10)
+        empty_follow_ups = request.args.get("empty_follow_ups", 1)
+
+        empty_follow_ups = bool(int(empty_follow_ups))
 
         search_params = get_search_params(
             request.args,
@@ -92,11 +102,17 @@ class ProjectsWithFollowUpCollection(Resource):
                 "contract_number",
                 "category",
                 "department",
+                "city",
                 "check_stage",
+                "adjudication",
+                "funding",
+                "program",
             ],
         )
 
-        return dal.project.paged_with_follow_ups(offset, limit, search_params)
+        return dal.project.paged_with_follow_ups(
+            offset, limit, search_params, empty_follow_ups=empty_follow_ups
+        )
 
 
 @ns.route("/with_follow_up/count")
@@ -106,8 +122,19 @@ class ProjectsWithFollowUpCount(Resource):
     @api.param("contract", "Contract DB id")
     @api.param("category", "Category id")
     @api.param("department", "Department id")
-    @api.param("stage", "Stage id")
+    @api.param("city", "The municipality catalog id")
+    @api.param("check_stage", "Stage id")
+    @api.param("check_stage", "Stage id")
+    @api.param("adjudication", "Adjudication process catalog id")
+    @api.param("funding", "Type of funding catalog id")
+    @api.param("program", "Type of program catalog id")
+    @api.param(
+        "empty_follow_ups", "Wheter or not to include records without any follow ups"
+    )
     def get(self):
+        empty_follow_ups = request.args.get("empty_follow_ups", 1)
+        empty_follow_ups = bool(int(empty_follow_ups))
+
         search_params = get_search_params(
             request.args,
             [
@@ -116,10 +143,14 @@ class ProjectsWithFollowUpCount(Resource):
                 "contract_number",
                 "category",
                 "department",
-                "stage",
+                "city",
+                "check_stage",
+                "adjudication",
+                "funding",
+                "program",
             ],
         )
-        count = dal.project.paged_with_follow_ups_count(search_params)
+        count = dal.project.paged_with_follow_ups_count(search_params, empty_follow_ups)
 
         return {"count": count}
 
