@@ -82,12 +82,12 @@ def _setup_search_criteria(search_params, joint=True):
             "provider": "provider_id",
         }
 
-        if search_params["start_date"]:
+        if search_params and search_params.get("start_date"):
             criteria.append(
                 f"follow_ups.inception_time > {search_params['start_date']}"
             )
 
-        if search_params["end_date"]:
+        if search_params and search_params.get("end_date"):
             criteria.append(f"follow_ups.inception_time < {search_params['end_date']}")
     else:
         filters = {
@@ -103,10 +103,10 @@ def _setup_search_criteria(search_params, joint=True):
             "provider": "contracts.provider",
         }
 
-        if search_params["start_date"]:
+        if search_params and search_params.get("start_date"):
             criteria.append(f"inception_time > {search_params['start_date']}")
 
-        if search_params["end_date"]:
+        if search_params and search_params.get("end_date"):
             criteria.append(f"inception_time < {search_params['end_date']}")
 
     if search_params is not None:
