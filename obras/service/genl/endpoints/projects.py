@@ -83,9 +83,14 @@ class ProjectsWithFollowUpCollection(Resource):
     @api.param("adjudication", "Adjudication process catalog id")
     @api.param("funding", "Type of funding catalog id")
     @api.param("program", "Type of program catalog id")
+    @api.param("provider", "The database id of the provider")
     @api.param(
         "empty_follow_ups", "Wheter or not to include records without any follow ups"
     )
+    @api.param(
+        "start_date", "The start date from when to filter, inclusive (2018/12/27)"
+    )
+    @api.param("end_date", "The end date from when to filter, inclusive (2018/12/29)")
     @api.marshal_with(project_follow_ups_model)
     def get(self):
         offset = request.args.get("offset", 0)
@@ -107,6 +112,9 @@ class ProjectsWithFollowUpCollection(Resource):
                 "adjudication",
                 "funding",
                 "program",
+                "provider",
+                "start_date",
+                "end_date",
             ],
         )
 
@@ -128,9 +136,14 @@ class ProjectsWithFollowUpCount(Resource):
     @api.param("adjudication", "Adjudication process catalog id")
     @api.param("funding", "Type of funding catalog id")
     @api.param("program", "Type of program catalog id")
+    @api.param("provider", "The database id of the provider")
     @api.param(
         "empty_follow_ups", "Wheter or not to include records without any follow ups"
     )
+    @api.param(
+        "start_date", "The start date from when to filter, inclusive (2018/12/27)"
+    )
+    @api.param("end_date", "The end date from when to filter, inclusive (2018/12/29)")
     def get(self):
         empty_follow_ups = request.args.get("empty_follow_ups", 1)
         empty_follow_ups = bool(int(empty_follow_ups))
@@ -148,6 +161,9 @@ class ProjectsWithFollowUpCount(Resource):
                 "adjudication",
                 "funding",
                 "program",
+                "provider",
+                "start_date",
+                "end_date",
             ],
         )
         count = dal.project.paged_with_follow_ups_count(search_params, empty_follow_ups)

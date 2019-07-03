@@ -66,40 +66,54 @@ def _alter_project(**kwargs):
 
 
 def _setup_search_criteria(search_params, joint=True):
-    filters = {
-        "project": "project_id",
-        "contract_number": "contract_number",
-        "contract": "contract_id",
-        "category": "category_id",
-        "department": "department_id",
-        "city": "city_id",
-        "check_stage": "check_stage",
-        "adjudication": "adjudication",
-        "funding": "funding",
-        "program": "program",
-    }
+    criteria = []
+    if joint:
+        filters = {
+            "project": "project_id",
+            "contract_number": "contract_number",
+            "contract": "contract_id",
+            "category": "category_id",
+            "department": "department_id",
+            "city": "city_id",
+            "check_stage": "check_stage",
+            "adjudication": "adjudication",
+            "funding": "funding",
+            "program": "program",
+            "provider": "provider_id",
+        }
 
-    if not joint:
-        filters["project"] = "projects.id"
-        filters["category"] = "projects.category"
-        filters["contract"] = "projects.contract"
-        filters["department"] = "projects.department"
-        filters["city"] = "projects.city"
-        filters["check_stage"] = "follow_ups.check_stage"
-        filters["adjudication"] = "contracts.adjudication"
-        filters["funding"] = "contracts.funding"
-        filters["program"] = "contracts.funding"
+        if search_params["start_date"]:
+            criteria.append(
+                f"follow_ups.inception_time > {search_params['start_date']}"
+            )
+
+        if search_params["end_date"]:
+            criteria.append(f"follow_ups.inception_time < {search_params['end_date']}")
+    else:
+        filters = {
+            "project": "projects.id",
+            "category": "projects.category",
+            "contract": "projects.contract",
+            "department": "projects.department",
+            "city": "projects.city",
+            "check_stage": "follow_ups.check_stage",
+            "adjudication": "contracts.adjudication",
+            "funding": "contracts.funding",
+            "program": "contracts.funding",
+            "provider": "contracts.provider",
+        }
+
+        if search_params["start_date"]:
+            criteria.append(f"inception_time > {search_params['start_date']}")
+
+        if search_params["end_date"]:
+            criteria.append(f"inception_time < {search_params['end_date']}")
 
     if search_params is not None:
-        criteria = []
         for field, value in search_params.items():
             criteria.append(f"{filters[field]} = {value}")
 
-        search = " AND ".join(criteria)
-    else:
-        search = ""
-
-    return search
+    return " AND ".join(criteria)
 
 
 def paged_with_follow_ups(
@@ -119,6 +133,8 @@ def paged_with_follow_ups(
             contracts.adjudication AS adjudication,
             contracts.funding AS funding,
             contracts.program AS program,
+            contracts.provider AS provider_id,
+            providers.title AS provider,
             departments.id AS department_id,
             departments.title AS department,
             categories.id AS category_id,
@@ -128,11 +144,13 @@ def paged_with_follow_ups(
             follow_ups.financial_advance,
             follow_ups.check_stage,
             follow_ups.check_date,
-            follow_ups.img_paths
+            follow_ups.img_paths,
+            follow_ups.inception_time
         FROM projects
         JOIN contracts ON contracts.id = projects.contract
         JOIN categories ON categories.id = projects.category
         JOIN departments ON departments.id = projects.department
+        JOIN providers ON providers.id = contracts.provider
         {} follow_ups ON follow_ups.project = projects.id
              AND follow_ups.blocked = false
         WHERE projects.blocked = false
