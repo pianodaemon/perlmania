@@ -90,10 +90,14 @@ def _setup_search_criteria(search_params, joint=True):
             criteria.append(f"inception_time <= '{search_params['end_date']}'")
 
         if search_params and search_params.get("contract_start_date"):
-            criteria.append(f"contract_kickoff >= '{search_params['start_date']}'")
+            criteria.append(
+                f"contract_kickoff >= '{search_params['contract_start_date']}'"
+            )
 
         if search_params and search_params.get("contract_end_date"):
-            criteria.append(f"contract_kickoff <= '{search_params['end_date']}'")
+            criteria.append(
+                f"contract_kickoff <= '{search_params['contract_end_date']}'"
+            )
     else:
         filters = {
             "project": "projects.id",
@@ -119,10 +123,14 @@ def _setup_search_criteria(search_params, joint=True):
             )
 
         if search_params and search_params.get("contract_start_date"):
-            criteria.append(f"contracts.kickoff >= '{search_params['start_date']}'")
+            criteria.append(
+                f"contracts.kickoff >= '{search_params['contract_start_date']}'"
+            )
 
         if search_params and search_params.get("contract_end_date"):
-            criteria.append(f"contracts.kickoff <= '{search_params['end_date']}'")
+            criteria.append(
+                f"contracts.kickoff <= '{search_params['contract_end_date']}'"
+            )
 
     if search_params is not None:
         for field, value in search_params.items():
