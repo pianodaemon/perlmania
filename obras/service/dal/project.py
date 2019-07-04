@@ -66,6 +66,7 @@ def _alter_project(**kwargs):
 
 
 def _setup_search_criteria(search_params, joint=True):
+    # TODO: add checks to avoid SQL injections
     criteria = []
     if joint:
         filters = {
@@ -84,11 +85,19 @@ def _setup_search_criteria(search_params, joint=True):
 
         if search_params and search_params.get("start_date"):
             criteria.append(
-                f"follow_ups.inception_time > {search_params['start_date']}"
+                f"follow_ups.inception_time >= '{search_params['start_date']}'"
             )
 
         if search_params and search_params.get("end_date"):
-            criteria.append(f"follow_ups.inception_time < {search_params['end_date']}")
+            criteria.append(
+                f"follow_ups.inception_time <= '{search_params['end_date']}'"
+            )
+
+        if search_params and search_params.get("contract_start_date"):
+            criteria.append(f"contract_kickoff >= '{search_params['start_date']}'")
+
+        if search_params and search_params.get("contract_end_date"):
+            criteria.append(f"contract_kickoff <= '{search_params['end_date']}'")
     else:
         filters = {
             "project": "projects.id",
@@ -104,11 +113,16 @@ def _setup_search_criteria(search_params, joint=True):
         }
 
         if search_params and search_params.get("start_date"):
-            criteria.append(f"inception_time > {search_params['start_date']}")
+            criteria.append(f"inception_time >= '{search_params['start_date']}'")
 
         if search_params and search_params.get("end_date"):
-            criteria.append(f"inception_time < {search_params['end_date']}")
+            criteria.append(f"inception_time <= '{search_params['end_date']}'")
 
+        if search_params and search_params.get("contract_start_date"):
+            criteria.append(f"contracts.kickoff >= '{search_params['start_date']}'")
+
+        if search_params and search_params.get("contract_end_date"):
+            criteria.append(f"contracts.kickoff <= '{search_params['end_date']}'")
     if search_params is not None:
         for field, value in search_params.items():
             criteria.append(f"{filters[field]} = {value}")
@@ -134,6 +148,7 @@ def paged_with_follow_ups(
             contracts.funding AS funding,
             contracts.program AS program,
             contracts.provider AS provider_id,
+            contracts.kickoff AS contract_kickoff,
             providers.title AS provider,
             departments.id AS department_id,
             departments.title AS department,

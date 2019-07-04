@@ -91,6 +91,8 @@ class ProjectsWithFollowUpCollection(Resource):
         "start_date", "The start date from when to filter, inclusive (2018/12/27)"
     )
     @api.param("end_date", "The end date from when to filter, inclusive (2018/12/29)")
+    @api.param("contract_start_date", "Filters contracts from this date on, inclusive")
+    @api.param("contract_end_date", "Filters contracts up to this date on, inclusive")
     @api.marshal_with(project_follow_ups_model)
     def get(self):
         offset = request.args.get("offset", 0)
@@ -115,6 +117,8 @@ class ProjectsWithFollowUpCollection(Resource):
                 "provider",
                 "start_date",
                 "end_date",
+                "contract_start_date",
+                "contract_end_date",
             ],
         )
 
@@ -144,6 +148,8 @@ class ProjectsWithFollowUpCount(Resource):
         "start_date", "The start date from when to filter, inclusive (2018/12/27)"
     )
     @api.param("end_date", "The end date from when to filter, inclusive (2018/12/29)")
+    @api.param("contract_start_date", "Filters contracts from this date on, inclusive")
+    @api.param("contract_end_date", "Filters contracts up to this date on, inclusive")
     def get(self):
         empty_follow_ups = request.args.get("empty_follow_ups", 1)
         empty_follow_ups = bool(int(empty_follow_ups))
@@ -164,6 +170,8 @@ class ProjectsWithFollowUpCount(Resource):
                 "provider",
                 "start_date",
                 "end_date",
+                "contract_start_date",
+                "contract_end_date",
             ],
         )
         count = dal.project.paged_with_follow_ups_count(search_params, empty_follow_ups)
