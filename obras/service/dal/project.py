@@ -123,9 +123,11 @@ def _setup_search_criteria(search_params, joint=True):
 
         if search_params and search_params.get("contract_end_date"):
             criteria.append(f"contracts.kickoff <= '{search_params['end_date']}'")
+
     if search_params is not None:
         for field, value in search_params.items():
-            criteria.append(f"{filters[field]} = {value}")
+            if filters.get(field):
+                criteria.append(f"{filters[field]} = {value}")
 
     return " AND ".join(criteria)
 
