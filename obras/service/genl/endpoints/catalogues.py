@@ -1,6 +1,5 @@
 from flask_restplus import Resource
 
-from dal.entity import page_entities
 from dal.helper import exec_steady
 from genl.restplus import api
 from misc.helperpg import EmptySetError
@@ -55,3 +54,15 @@ class DepartmentsCollection(Resource):
 class CheckStagesCollection(Resource):
     def get(self):
         return _get_100_entities("check_stages")
+
+
+@ns.route("/adjudications")
+class AdjudicationsCollection(Resource):
+    def get(self):
+        return _get_100_entities("adjudications")
+
+
+@ns.route("/fundings")
+class FundingsCollection(Resource):
+    def get(self):
+        return _get_100_entities("fundings")
