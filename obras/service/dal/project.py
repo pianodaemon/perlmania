@@ -164,7 +164,7 @@ def paged_with_follow_ups(
             contracts.down_payment_amount,
             contracts.ext_agreement,
             contracts.ext_agreement_amount,
-            contracts.final_contracted_amunt,
+            contracts.final_contracted_amount,
             contracts.total_amount_paid,
             contracts.outstanding_down_payment,
             providers.id AS provider_id,
