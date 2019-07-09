@@ -154,16 +154,31 @@ def paged_with_follow_ups(
             projects.city AS city_id,
             contracts.id AS contract_id,
             contracts.number AS contract_number,
-            contracts.adjudication AS adjudication,
-            contracts.funding AS funding,
-            contracts.program AS program,
-            contracts.provider AS provider_id,
+            contracts.title AS contract_title,
+            contracts.description AS contract_description,
+            contracts.program AS program_id,
+            contracts.initial_contracted_amount,
             contracts.kickoff AS contract_kickoff,
+            contracts.ending AS contract_ending,
+            contracts.down_payment,
+            contracts.down_payment_amount,
+            contracts.ext_agreement,
+            contracts.ext_agreement_amount,
+            contracts.final_contracted_amunt,
+            contracts.total_amount_paid,
+            contracts.outstanding_down_payment,
+            providers.id AS provider_id,
             providers.title AS provider,
             departments.id AS department_id,
             departments.title AS department,
             categories.id AS category_id,
             categories.title AS category,
+            adjudications.id AS adjudication_id,
+            adjudications.title AS adjudication,
+            fundings.id AS funding_id,
+            fundings.title AS funding,
+            delivery_stages.id AS delivery_stage_id,
+            delivery_stages.title AS delivery_stage,
             follow_ups.id AS follow_up,
             follow_ups.verified_progress,
             follow_ups.financial_advance,
@@ -176,6 +191,9 @@ def paged_with_follow_ups(
         JOIN categories ON categories.id = projects.category
         JOIN departments ON departments.id = projects.department
         JOIN providers ON providers.id = contracts.provider
+        JOIN adjudications ON adjudications.id = contracts.adjudication
+        JOIN fundings ON fundings.id = contracts.funding
+        JOIN delivery_stages ON delivery_stage.id = contracts.delivery_stage
         {} follow_ups ON follow_ups.project = projects.id
              AND follow_ups.blocked = false
         WHERE projects.blocked = false
