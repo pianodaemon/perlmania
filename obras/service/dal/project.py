@@ -191,9 +191,9 @@ def paged_with_follow_ups(
         JOIN categories ON categories.id = projects.category
         JOIN departments ON departments.id = projects.department
         JOIN providers ON providers.id = contracts.provider
-        JOIN adjudications ON adjudications.id = contracts.adjudication
-        JOIN fundings ON fundings.id = contracts.funding
-        JOIN delivery_stages ON delivery_stage.id = contracts.delivery_stage
+        LEFT JOIN adjudications ON adjudications.id = contracts.adjudication
+        LEFT JOIN fundings ON fundings.id = contracts.funding
+        LEFT JOIN delivery_stages ON delivery_stages.id = contracts.delivery_stage
         {} follow_ups ON follow_ups.project = projects.id
              AND follow_ups.blocked = false
         WHERE projects.blocked = false
