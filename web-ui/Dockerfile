@@ -13,7 +13,7 @@ RUN apt-get install -y --no-install-recommends  \
 RUN apt-get clean
 
 WORKDIR /app
-COPY . /app
+COPY ./service /app
 
 RUN pip3 install -r requirements.txt
 

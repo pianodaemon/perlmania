@@ -31,6 +31,9 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         
  
+        <!-- Select2 -->
+        <link href="/static/css/select2.min.css" rel="stylesheet" />
+        
         <!-- CSS for Lato family font -->
         <link href="/static/css/cssLaton.css" rel="stylesheet">
         
@@ -62,10 +65,9 @@
                         <img width="244" height="119" class="img-fluid" src="/static/images/escudo.png">
                     </div>
                 </div>
-                <ul class="list-unstyled components">     
+                <ul class="list-unstyled components">       
                 
-                
-                           
+                         
                     <li class="menu-element"  id="{{ menu[1]['idHTML'] }}"  {{ menu[1]['isActive'] }}  >
                         <a  href="{{ menu[1]['url'] }}" >
                             <i class="{{ menu[1]['iconClass'] }}"></i>
@@ -89,18 +91,14 @@
                             <i class="{{ menu[4]['iconClass'] }}"> </i>
                             <span class="menu-title"> {{ menu[4]['name'] }} </span>
                         </a>
-                    </li>     
+                    </li>  
                     <li class="menu-element"  id="{{ menu[5]['idHTML'] }}"  {{ menu[5]['isActive'] }} >
                         <a   href="{{ menu[5]['url'] }}" >
                             <i class="{{ menu[5]['iconClass'] }}"> </i>
                             <span class="menu-title"> {{ menu[5]['name'] }} </span>
                         </a>
                     </li>                   
-                    
-                    
-                    
-                    
-                                   
+                                    
                     
                 </ul>
             </nav>
@@ -151,7 +149,11 @@
                             &nbsp;&nbsp;
                             <i class="fa fa-angle-right"></i>
                             &nbsp;&nbsp;
-                            <a  id="titleDepartment" > Crear {{ menu[0]['nameSingular'] }}  </a>
+                            <a  id="titleProjectRegister" > Registro de Obras </a>
+                            &nbsp;&nbsp;
+                            <i class="fa fa-angle-right"></i>
+                            &nbsp;&nbsp;
+                            <a  id="titleDepartment" > Agregar {{ menu[0]['nameSingular'] }}  </a>
                         </li>                         
                     </ol>
                     <div class="clearfix">
@@ -175,27 +177,83 @@
 
                                 <div class="portlet-body" >
 
+
                                     <div action="/" id="addRegister">
                                         <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label for="nameprovider">Nombre del Contratista </label> <br>
-                                                    <input type="text" name="nameprovider" class="form-control" id="nameprovider" >
-                                                    <p id="for_nameprovider" class="msjNotValid" >Ingresa un nombre </p>
+
+                                            <div class="row rowAddRegister"  >
+                                                <div class="col-md-12">
+                                                    <h4> {{ projectTitle }} </h4>
                                                 </div>
-                                                
+
+
+
+                                            </div>
+
+
+                                            <div class="row rowAddRegister">
                                                 <div class="col-md-6">
-                                                    <label for="descriptionprovider">Descripción </label> <br>
-                                                    <input type="text" name="descriptionprovider" class="form-control" id="descriptionprovider" >
-                                                    <p id="for_descriptionprovider" class="msjNotValid" >Ingresa una descripción</p>
+                                                    <label for="verified_progress" class="indicatorName"> Avance Físico </label> <br>
+                                                    <input type="number" name="verified_progress" class="form-control" id="verified_progress" value="">
+                                                    <p id="for_verified_progress" class="msjNotValid" > </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="check_date" class="indicatorName"> Fecha de verificación </label> <br>
+                                                    <input type="text" name="check_date" class="form-control" id="check_date" value="" >
+                                                    <p id="for_check_date" class="msjNotValid" > </p>
+                                                </div>
+                                               
+                                            </div>                                       
+                                        
+                                              
+                                             <div class="row rowAddRegister">
+                                                <div class="col-md-6">
+                                                    <label for="financial_advance" class="indicatorName"> Avance Financiero </label> <br>
+                                                    <input type="number" name="financial_advance" class="form-control" id="financial_advance" value="" >
+                                                    <p id="for_financial_advance" class="msjNotValid" > </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="check_stage" class="indicatorName"> Estatus de Verificación </label> <br>
+                                                    <select name="check_stage" class="form-control" id="check_stage" >
+                                                        <option value="0"> Selecciona un Estatus </option>
+                                                        {% for cState in checkStages %}
+                                                        <option value="{{ cState.id }}"> {{ cState.title }} </option>
+                                                        {% endfor %}                                                      
+                                                    </select>
+
+                                                    <p id="for_check_stage" class="msjNotValid" > </p>
+                                                </div>
+
+                                            </div>  
+
+                                             <div class="row rowAddRegister">
+                                                <div class="col-md-12">
+
+                                                    <div class="upload-btn-wrapper">
+                                                        <button class="btnUp">Subir imagen <i class="fas fa-upload"></i> </button>
+                                                        <input type="file" name="file[]" multiple="" id="file">
+                                                    </div>
+                                                    <div id="nameFileUpload" style="display: inline-block;vertical-align: 1em;"></div>
+                                                    <p id="for_file" class="msjNotValid" > </p>
+
                                                 </div>
                                             </div>
-                                                
+
+
+                                                                                
+
+
                                             <div class="contentOfButtonsActions" >
-                                                <button class="buttonsActions" onclick="addRegister();">Guardar</button>
+                                                <button class="buttonsActions" onclick="saveRegister();">Guardar</button>
                                             </div>
                                         </div>
                                     </div>
+
+
+
+
+
+
 
                                 </div>
                             </div>
@@ -209,6 +267,7 @@
         
         <input id="catalogName" type="hidden" value="{{ catalog }}" >
 
+        <input id="projectid" type="hidden" value="{{ projectId }}" >
 
     
         <!-- Jquery -->
@@ -226,6 +285,9 @@
         <!-- Module of Highcharts -->
         <script src="/static/js/exporting.js"></script>
 
+        <!-- Select2 -->
+        <script src="/static/js/select2.min.js"></script>
+        
         <!-- Notify -->
         <script src="/static/js/notify.min.js"></script>
         
@@ -248,30 +310,56 @@
                     $('#sidebar').toggleClass('active');
                 });
 
+
+                $( "#check_date" ).datepicker( datesGENL.formatPicker );
+
+
+                var urlTitleProjectRegister = '/follow_ups/project/' + document.getElementById('projectid').value;
+                document.getElementById('titleProjectRegister').setAttribute('href', urlTitleProjectRegister )
+
+                $("#file").change(function() {
+                    imagesFollowUps.inputFileChange();
+                });
+                imagesFollowUps.inputFileChange();
+
             });
 
 
-            function addRegister() {
-             
-                var catalog = document.getElementById('catalogName').value;
-                var url = '/'+ catalog +'/add';
 
+
+            function saveRegister(){
+                                
+                var idProject   = $('#projectid').val();
+                var catalog = document.getElementById('catalogName').value;
+                var url = catalog + idProject;
+
+                //Fields for validate
                 var fieldsJson = [
-                    {'id' : 'nameprovider',         'type' : 'text'},
-                    {'id' : 'descriptionprovider',  'type' : 'text'},
-                ]
+                    {'id' : 'verified_progress',  'type' : 'intMil'},
+                    {'id' : 'check_date',         'type' : 'date'},
+                    {'id' : 'check_stage',        'type' : 'selectNumber'},
+                    {'id' : 'financial_advance',  'type' : 'intMil'},
+                ];
 
                 var send = validate.fields( fieldsJson );
-                
-                if (send){
+                var sendImage = validate.image( 'file' )
+
+ 
+                if (send && sendImage){
                     var dataJson = JSON.stringify({
-                        'title':        $('#nameprovider').val() , 
-                        'description':  $('#descriptionprovider').val()
+                        'project'           : idProject,
+                        'verified_progress' : $('#verified_progress').val(),
+                        'financial_advance' : $('#financial_advance').val(),
+                        'img_paths'         : '',
+                        'check_stage'       : $('#check_stage').val(),
+                        'check_date'        : datesGENL.formatDateSend( $('#check_date').val() ),
+                        'inceptor_uuid'     : ''
                     });
-                    POSTRegister.send( url, dataJson, 'create' );
+                    
+                    POSTFollowUps.send( url, dataJson, 'update' );
                 }
-            
             }
+
 
         </script>
 

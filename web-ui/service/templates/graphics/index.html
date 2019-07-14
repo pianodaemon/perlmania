@@ -1,0 +1,526 @@
+<!doctype html>
+<html>
+    <head>
+
+        <meta charset="utf-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        
+        <link rel="icon" href="/static/images/favi.png" type="image/gif" sizes="16x9">
+        
+        <!--Loading JQuery UI css-->
+        <link href="/static/css/jquery-ui.css" rel="stylesheet" type="text/css">
+        
+        <!--  -->
+        <link href="/static/css/main.css" rel="stylesheet" type="text/css">
+        <!-- Bootstrap CSS CDN -->
+        <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        
+        <!-- Our Custom CSS -->
+        <link href="/static/css/style4.css" rel="stylesheet" type="text/css">
+        
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+        
+        <!-- Select2 -->
+        <link href="/static/css/select2.min.css" rel="stylesheet" />
+ 
+        <!-- Fonts Google -->
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        
+ 
+        <!-- CSS for Lato family font -->
+        <link href="/static/css/cssLaton.css" rel="stylesheet">
+        
+        
+        <link href="/static/css/obras.css" rel="stylesheet">
+        
+
+        <title> Contraloría y Transparencia Gubernamental Gobierno del Estado de Nuevo León </title>
+    </head>
+
+
+    <body class="  pace-done">
+        <div class="pace  pace-inactive">
+            <div class="pace-progress" data-progress-text="100%" data-progress="99" style="width: 100%;">  
+                <div class="pace-progress-inner">
+                </div>
+            </div>
+            <div class="pace-activity">
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <!-- Sidebar Holder -->
+            <nav id="sidebar" style="min-height: 100%;">
+                <div class="sidebar-header">
+                    <div class="sjo-logo-big">
+                        <img width="244" height="119" class="img-fluid" src="/static/images/logo.png">
+                    </div>
+                    <div class="sjo-logo-small">
+                        <img width="244" height="119" class="img-fluid" src="/static/images/escudo.png">
+                    </div>
+                </div>
+                <ul class="list-unstyled components">      
+                
+                          
+
+                          
+                    <li class="menu-element"  id="{{ menu[1]['idHTML'] }}"  {{ menu[1]['isActive'] }}  >
+                        <a  href="{{ menu[1]['url'] }}" >
+                            <i class="{{ menu[1]['iconClass'] }}"></i>
+                            <span class="menu-title">  {{ menu[1]['name'] }} </span>
+                        </a>
+                    </li>
+                    <li class="menu-element"  id="{{ menu[2]['idHTML'] }}"  {{ menu[2]['isActive'] }} >
+                        <a  href="{{ menu[2]['url'] }}"  >
+                            <i class="{{ menu[2]['iconClass'] }}"></i>
+                            <span class="menu-title" > {{ menu[2]['name'] }} </span>
+                        </a>                       
+                    </li>
+                    <li class="menu-element"  id="{{ menu[3]['idHTML'] }}"   {{ menu[3]['isActive'] }} > 
+                        <a   href="{{ menu[3]['url'] }}" >
+                            <i class="{{ menu[3]['iconClass'] }}"> </i>
+                            <span class="menu-title"> {{ menu[3]['name'] }} </span>
+                        </a>
+                    </li>
+                    <li class="menu-element"  id="{{ menu[4]['idHTML'] }}"  {{ menu[4]['isActive'] }} >
+                        <a   href="{{ menu[4]['url'] }}" >
+                            <i class="{{ menu[4]['iconClass'] }}"> </i>
+                            <span class="menu-title"> {{ menu[4]['name'] }} </span>
+                        </a>
+                    </li>                   
+                    <li class="menu-element"  id="{{ menu[5]['idHTML'] }}"  {{ menu[5]['isActive'] }} >
+                        <a   href="{{ menu[5]['url'] }}" >
+                            <i class="{{ menu[5]['iconClass'] }}"> </i>
+                            <span class="menu-title"> {{ menu[5]['name'] }} </span>
+                        </a>
+                    </li>                   
+                    
+
+
+
+
+                </ul>
+            </nav>
+
+            
+
+            <!-- Page Content Holder -->
+            <div id="content" class="container-fluid">
+
+            <!-- Nav Bar -->
+                <nav class="navbar navbar-default navbar-static-top" >
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button class="btn btn-info navbar-btn" id="sidebarCollapse" type="button">
+                                <i class="fa fa-bars"></i>
+                                <span class="sr-only">Toggle navigation</span>
+                            </button>
+                        </div>
+                        <!--
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user-circle" style="font-size: 20px; vertical-align: -1px;"></i>
+                                Usuario
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-sw" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" ><i class="fa fa-user"></i>Mi Perfil</a>               
+                                
+                                <a class="dropdown-item" href="#"><i class="fa fa-calendar"></i>Calendario</a>
+                                <a class="dropdown-item" href="#"><i class="fa fa-envelope"></i>Buzón</a>     
+                                
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" ><i class="fas fa-sign-out-alt"></i></i>Salir</a>
+                            </div>
+                        </div>   
+                        -->                     
+                    </div>
+                </nav>
+
+
+                <!--BEGIN TITLE & BREADCRUMB PAGE-->
+                
+                <div class="page-title-breadcrumb" id="title-breadcrumb-option-demo">
+                    <ol class="breadcrumb page-breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            &nbsp;
+                            <a   id="titleFirstLink"> {{ menu[0]['name'] }} </a>
+
+                        </li>                         
+                    </ol>
+                    <div class="clearfix">
+                    </div>
+                </div>
+                
+                <!--END TITLE & BREADCRUMB PAGE-->
+                
+
+                <!--BEGIN CONTENT-->
+                <div class="container-fluid">
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="portlet box">
+                                
+
+
+
+                                <div class="portlet-header">
+                                    <select id="periodDateChart" >
+                                        <option value="/">Administración Actual</option>
+                                        <option value="/2015-10-4">Administración Anterior (Hasta 4/Oct/2015)</option>
+                                        <option value="2016-01-01/2016-12-31">2016</option>
+                                        <option value="2017-01-01/2017-12-31">2017</option>
+                                        <option value="2018-01-01/2018-12-31">2018</option>
+                                        <option value="2019-01-01/2019-12-31">2019</option>
+                                    </select>
+                                    <div class="tools">
+                                        <!--
+                                        <i class="fa fa-chevron-up"></i>
+                                        <i data-toggle="modal" data-target="#modal-config" class="fa fa-cog"></i>
+                                        <i class="fa fa-refresh"></i>
+                                        <i class="fa fa-times"></i>
+                                        -->
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-6">
+                                            <!--
+                                            <label for="message-text" class="col-form-label"><b>Dependencia:</b></label>
+                                            <select id="dependencySelect" class="form-control " required="">
+                                                <option value="">--Seleccione una Dependencia--</option>
+                                                <option value="">TOTAL</option>
+                                                {% for department in departments %}
+                                                <option value="{{ department.id }}"> {{ department.title }} </option>
+                                                {% endfor %}                                                
+                                            </select>
+                                            <div class="invalid-feedback">Debe seleccionar una dependencia</div>
+                                            -->
+                                        </div>
+                                        <div class="col-md-8 col-sm-6">
+                                            <div style="text-align:right;">
+                                                <button type="button" data-toggle="modal" data-target="#modalSearch" style="cursor:pointer;margin: 20px 10px 0 0;background:transparent; border: none; padding: 14px 8px 0 5px; color: #666; "> Búsqueda Avanzada <i class="fas fa-search" style="padding: 10px; border: 1px solid #ddd; border-radius: 34px;"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row" >
+                                        <div class="col-md-12" id="titleChartGral">
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row" >
+                                        <div class="col-md-12">
+                                            <div id="radioSelects">
+                                                <!--<span class="linkPlots" id="plotTotal1" active onclick="plotsChart.initStatusPie();">
+                                                    <i class="fas fa-chart-line" style="margin-right:10px;"></i> Estatus
+                                                </span>-->
+                                                <span class="linkPlots" id="plotTotal2" onclick="plotsChart.initStackCities();">
+                                                    <i class="fas fa-map" style="margin-right:10px;"></i> Municipios
+                                                </span>
+                                                <span class="linkPlots" id="plotTotal3" onclick="plotsChart.initDepartmentsPie();">
+                                                    <i class="fas fa-building" style="margin-right:10px;"></i> Dependencias
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div id="genl-pie-chart" style="width: 100%; height:400px">
+                                    </div>
+                                    <div id="genl-legend-pie-chart" style="color: #444">
+                                    </div>
+                                </div>
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>                            
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalSearch" role="dialog">
+            <div class="modal-dialog">
+          
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="" style="padding-left: 14px;font-size: 1em;">Búsqueda Avanzada</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            
+                            <div class="row rowAddRegister"  >
+                                <div class="col-md-12">
+                                    <label for="departmentSearch" class="col-form-label modalSearchLabel">Dependencia:</label>
+                                    <select id="departmentSearch" class="form-control " >
+                                        <option value="">--Seleccione una Dependencia--</option>
+                                        {% for department in departments %}
+                                        <option value="{{ department.id }}"> {{ department.title }} </option>
+                                        {% endfor %}                                                
+                                    </select>
+                                    <div class="invalid-feedback">Debe seleccionar una dependencia</div>
+                                </div>
+                            </div>
+
+
+                            <div class="row rowAddRegister"  >
+                                <div class="col-md-12">
+                                    <label for="city" class="indicatorName modalSearchLabel"> Municipio </label> <br>
+                                    <select name="city" class="form-control" id="city" >
+
+                                        <option value="">--Selecciona un Municipio--</option>
+                                        <option value="1">Abasolo</option>
+                                        <option value="2">Agualeguas</option>
+                                        <option value="3">Los Aldamas</option>
+                                        <option value="4">Allende</option>
+                                        <option value="5">Anahuac</option>
+                                        <option value="6">Apodaca</option>
+                                        <option value="7">Aramberri</option>
+                                        <option value="8">Bustamante</option>
+                                        <option value="9">Cadereyta Jimenez</option>
+                                        <option value="10">Carmen</option>
+                                        <option value="11">Cerralvo</option>
+                                        <option value="12">Cienega de Flores</option>
+                                        <option value="13">China</option>
+                                        <option value="14">Dr. Arroyo</option>
+                                        <option value="15">Dr. Coss</option>
+                                        <option value="16">Dr. Gonzalez</option>
+                                        <option value="17">Galeana</option>
+                                        <option value="18">Garcia</option>
+                                        <option value="19">San Pedro Garza Garcia</option>
+                                        <option value="20">Gral. Bravo</option>
+                                        <option value="21">Gral. Escobedo</option>
+                                        <option value="22">Gral. Terán</option>
+                                        <option value="23">Gral. Treviño</option>
+                                        <option value="24">Gral. Zaragoza</option>
+                                        <option value="25">Gral. Zuazua</option>
+                                        <option value="26">Guadalupe</option>
+                                        <option value="27">Los Herreras</option>
+                                        <option value="28">Higueras</option>
+                                        <option value="29">Hualahuises</option>
+                                        <option value="30">Iturbide</option>
+                                        <option value="31">Juarez</option>
+                                        <option value="32">Lampazos de Naranjo</option>
+                                        <option value="33">Linares</option>
+                                        <option value="34">Marin</option>
+                                        <option value="35">Melchor Ocampo</option>
+                                        <option value="36">Mier y Noriega</option>
+                                        <option value="37">Mina</option>
+                                        <option value="38">Montemorelos</option>
+                                        <option value="39">Monterrey</option>
+                                        <option value="40">Paras</option>
+                                        <option value="41">Pesqueria</option>
+                                        <option value="42">Los Ramones</option>
+                                        <option value="43">Rayones</option>
+                                        <option value="44">Sabinas Hidalgo</option>
+                                        <option value="45">Salinas Victoria</option>
+                                        <option value="46">San Nicolas de los Garza</option>
+                                        <option value="47">Hidalgo</option>
+                                        <option value="48">Santa Catarina</option>
+                                        <option value="49">Santiago</option>
+                                        <option value="50">Vallecillo</option>
+                                        <option value="51">Villaldama</option>
+
+                                    </select>
+                                    <p id="for_city" class="msjNotValid" > </p>
+                                </div>
+                            </div>
+                            
+                            <div class="row rowAddRegister">
+                                <div class="col-md-12">
+                                    <label for="check_stage" class="indicatorName modalSearchLabel"> Estatus </label> <br>
+                                    <select name="check_stage" class="form-control" id="check_stage" >
+                                        <option value="">--Selecciona un Estatus--</option>
+                                        <option value="1">TERMINADAS</option>
+                                        <option value="2">EN TIEMPO</option>
+                                        <option value="3">CON RETRASO</option>
+                                        <option value="4">RESCINDIDAS</option>
+                                        <option value="5">NO INICIADAS</option>
+                                        <option value="6">CON AVANCE FINANCIERO MAYOR AL FÍSICO</option>
+                                        <option value="7">DE FUERZA CIVIL, POLICÍA  Y PENALES</option>
+                                    </select>
+
+                                    <p id="for_check_stage" class="msjNotValid" > </p>
+                                </div>
+                            </div> 
+
+                            <div class="row rowAddRegister">
+                                <div class="col-md-12">
+                                    <label for="year" class="indicatorName modalSearchLabel"> Año  </label> <br>
+                                    <select name="year" class="form-control" id="year" >
+                                        <option value="">--Selecciona un Año--</option>
+                                        <option value="2016-01-01">2016</option>
+                                        <option value="2017-01-01">2017</option>
+                                        <option value="2018-01-01">2018</option>
+                                        <option value="2019-01-01">2019</option>
+                                    </select>
+                                    <p id="for_planed_kickoff" class="msjNotValid" > </p>
+                                </div>
+                            </div> 
+
+                            <div class="row rowAddRegister">
+                                <div class="col-md-12">
+                                    <label for="provider" class="indicatorName modalSearchLabel">Contratista </label> <br>
+                                    <select name="provider" class="form-control" id="provider" >
+                                        <option value="">--Seleccione un Contratista--</option>
+                                        {% for provider in providers %}
+                                        <option value="{{ provider.id }}"> {{ provider.title }} </option>
+                                        {% endfor %}
+                                    </select>
+                                    <p id="for_provider" class="msjNotValid" > </p>
+                                </div>
+                            </div> 
+
+
+                            <div class="row rowAddRegister">
+                                <div class="col-md-12">
+                                    <label for="adjudication" class="indicatorName modalSearchLabel"> Proceso de Adjudicación </label> <br>
+                                    <select name="adjudication" class="form-control" id="adjudication" >
+                                        <option value="">--Selecciona un Proceso de Adjudicación--</option>
+                                        <option value="1">Licitación Pública</option>
+                                        <option value="2">Adjudicación Directa</option>
+                                        <option value="3">Invitación Restringida</option>
+                                    </select>
+                                    <p id="for_planed_kickoff" class="msjNotValid" > </p>
+                                </div>
+                            </div>
+                            
+                            <div class="row rowAddRegister">
+                                <div class="col-md-12">
+                                    <label for="funding" class="indicatorName modalSearchLabel"> Tipo de Fondo  </label> <br>
+                                    <select name="funding" class="form-control" id="funding" >
+                                        <option value="">--Selecciona un Tipo de Fondo--</option>
+                                        <option value="1">Federal</option>
+                                        <option value="2">Estatal</option>
+                                    </select>
+                                    <p id="for_planed_kickoff" class="msjNotValid" > </p>
+                                </div>
+                            </div>
+
+                            <div class="row rowAddRegister">
+                                <div class="col-md-12">
+                                    <label for="program" class="indicatorName modalSearchLabel"> Programa </label> <br>
+                                    <select name="program" class="form-control" id="program" >
+                                        <option value="">--Selecciona el Programa--</option>
+                                    </select>
+                                    <p id="for_planed_kickoff" class="msjNotValid" > </p>
+                                </div>
+                            </div>
+
+                            <div class="row rowAddRegister">
+                                <div class="col-md-12">
+                                    <input type="submit" class="obrasButtonNormal" value="Buscar" onclick="plotsChart.search();" style="width:auto;float: right; padding: 8px 30px;" >
+                                </div>
+                            </div> 
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            
+            </div>
+        </div>
+
+
+
+
+
+        <div class="lds-roller"  id="waintingAnimation" >
+            <div> </div>
+            <div> </div>
+            <div> </div>
+            <div> </div>
+            <div> </div>
+            <div> </div>
+            <div> </div>
+            <div> </div>
+        </div>
+        
+        <input id="urlLink" type="hidden" value="{{ urlLink }}" >
+        
+        <input id="catalogName" type="hidden" value="{{ catalog }}" >
+
+    
+        <!-- Jquery -->
+        <script src="/static/js/jquery-3.3.1.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="/static/js/bootstrap.min.js"></script>
+        <!-- Jquery UI -->
+        <script src="/static/js/jquery-ui.js"></script>
+        <!--  -->
+        <script src="/static/js/jsonpath-0.8.0.js"></script>
+        <!-- Highcharts -->
+        <script src="/static/js/highcharts.js"></script>
+        <!-- Highcharts 3D charts -->
+        <script src="/static/js/highcharts-3d.js"></script>
+        <!-- Module of Highcharts -->
+        <script src="/static/js/exporting.js"></script>
+        
+        <!-- Select2 -->
+        <script src="/static/js/select2.min.js"></script>
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+        
+
+
+        <!-- Js for Obras -->
+        <script src="/static/js/listRegisters.js"></script>
+        <script src="/static/js/graphics.js"></script>
+        
+        <script> 
+        
+            $(document).ready(function () {
+            
+                //Button toggle for sidebar
+                $('#sidebarCollapse').on('click', function () {
+                    $('#sidebar').toggleClass('active');
+                });
+                
+                $( "#planed_kickoff" ).datepicker( datesGENL.formatPicker );
+                $('#city').select2();
+                $('#provider').select2();
+            
+                //Select the dependency 
+                $('#periodDateChart').on('change', function() {
+                    
+                    var startEnd = $('#periodDateChart').val().split('/')
+                    plotsChart.startDate = startEnd[0];
+                    plotsChart.endDate   = startEnd[1];
+                    
+                    plotsChart.getData();
+              	});
+                
+                plotsChart.initStatusPie();
+                //plotsChart.initStackCities();
+                
+                /*if( document.getElementById('dependencySelect').value != '' ){
+                    plotsChart.init();
+                }*/
+            });
+
+        </script>
+    
+    </body>
+</html>

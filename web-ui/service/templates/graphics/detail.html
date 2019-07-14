@@ -1,0 +1,598 @@
+<!doctype html>
+<html>
+    <head>
+
+        <meta charset="utf-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        
+        <link rel="icon" href="/static/images/favi.png" type="image/gif" sizes="16x9">
+        
+        <!--Loading JQuery UI css-->
+        <link href="/static/css/jquery-ui.css" rel="stylesheet" type="text/css">
+        
+        <!--  -->
+        <link href="/static/css/main.css" rel="stylesheet" type="text/css">
+        <!-- Bootstrap CSS CDN -->
+        <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        
+        <!-- Our Custom CSS -->
+        <link href="/static/css/style4.css" rel="stylesheet" type="text/css">
+        
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+        
+        <!-- Fonts Google -->
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        
+               
+        <!-- Map Leaflet -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+ 
+        <!-- CSS for Lato family font -->
+        <link href="/static/css/cssLaton.css" rel="stylesheet">
+        
+        
+        <link href="/static/css/obras.css" rel="stylesheet">
+        
+
+        <title> Contraloría y Transparencia Gubernamental Gobierno del Estado de Nuevo León </title>
+    </head>
+
+
+    <body class="  pace-done">
+        <div class="pace  pace-inactive">
+            <div class="pace-progress" data-progress-text="100%" data-progress="99" style="width: 100%;">  
+                <div class="pace-progress-inner">
+                </div>
+            </div>
+            <div class="pace-activity">
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <!-- Sidebar Holder -->
+            <nav id="sidebar" style="min-height: 100%;">
+                <div class="sidebar-header">
+                    <div class="sjo-logo-big">
+                        <img width="244" height="119" class="img-fluid" src="/static/images/logo.png">
+                    </div>
+                    <div class="sjo-logo-small">
+                        <img width="244" height="119" class="img-fluid" src="/static/images/escudo.png">
+                    </div>
+                </div>
+                <ul class="list-unstyled components">      
+                
+                          
+
+                          
+                    <li class="menu-element"  id="{{ menu[1]['idHTML'] }}"  {{ menu[1]['isActive'] }}  >
+                        <a  href="{{ menu[1]['url'] }}" >
+                            <i class="{{ menu[1]['iconClass'] }}"></i>
+                            <span class="menu-title">  {{ menu[1]['name'] }} </span>
+                        </a>
+                    </li>
+                    <li class="menu-element"  id="{{ menu[2]['idHTML'] }}"  {{ menu[2]['isActive'] }} >
+                        <a  href="{{ menu[2]['url'] }}"  >
+                            <i class="{{ menu[2]['iconClass'] }}"></i>
+                            <span class="menu-title" > {{ menu[2]['name'] }} </span>
+                        </a>                       
+                    </li>
+                    <li class="menu-element"  id="{{ menu[3]['idHTML'] }}"   {{ menu[3]['isActive'] }} > 
+                        <a   href="{{ menu[3]['url'] }}" >
+                            <i class="{{ menu[3]['iconClass'] }}"> </i>
+                            <span class="menu-title"> {{ menu[3]['name'] }} </span>
+                        </a>
+                    </li>
+                    <li class="menu-element"  id="{{ menu[4]['idHTML'] }}"  {{ menu[4]['isActive'] }} >
+                        <a   href="{{ menu[4]['url'] }}" >
+                            <i class="{{ menu[4]['iconClass'] }}"> </i>
+                            <span class="menu-title"> {{ menu[4]['name'] }} </span>
+                        </a>
+                    </li>                   
+                    <li class="menu-element"  id="{{ menu[5]['idHTML'] }}"  {{ menu[5]['isActive'] }} >
+                        <a   href="{{ menu[5]['url'] }}" >
+                            <i class="{{ menu[5]['iconClass'] }}"> </i>
+                            <span class="menu-title"> {{ menu[5]['name'] }} </span>
+                        </a>
+                    </li>                   
+                    
+
+
+
+
+                </ul>
+            </nav>
+
+            
+
+            <!-- Page Content Holder -->
+            <div id="content" class="container-fluid">
+
+            <!-- Nav Bar -->
+                <nav class="navbar navbar-default navbar-static-top" >
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button class="btn btn-info navbar-btn" id="sidebarCollapse" type="button">
+                                <i class="fa fa-bars"></i>
+                                <span class="sr-only">Toggle navigation</span>
+                            </button>
+                        </div>
+                        <!--
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user-circle" style="font-size: 20px; vertical-align: -1px;"></i>
+                                Usuario
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-sw" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" ><i class="fa fa-user"></i>Mi Perfil</a>               
+                                
+                                <a class="dropdown-item" href="#"><i class="fa fa-calendar"></i>Calendario</a>
+                                <a class="dropdown-item" href="#"><i class="fa fa-envelope"></i>Buzón</a>     
+                                
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" ><i class="fas fa-sign-out-alt"></i></i>Salir</a>
+                            </div>
+                        </div>   
+                        -->                     
+                    </div>
+                </nav>
+
+
+                <!--BEGIN TITLE & BREADCRUMB PAGE-->
+                
+                <div class="page-title-breadcrumb" id="title-breadcrumb-option-demo">
+                    <ol class="breadcrumb page-breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            &nbsp;
+                            <a   id="titleFirstLink" href="{{ pagePrevPrev }}" > {{ menu[0]['name'] }} </a>
+                            &nbsp;
+                            <i class="fa fa-angle-right"></i>
+                            &nbsp;
+                            <a   id="titleSecondLink">  </a>
+                            &nbsp;
+                            <i class="fa fa-angle-right"></i>
+                            &nbsp;
+                            <a   id="titleThirdLink"> Detalle </a>
+
+
+                        </li>                         
+                    </ol>
+                    <div class="clearfix">
+                    </div>
+                </div>
+                
+                <!--END TITLE & BREADCRUMB PAGE-->
+                
+
+                <!--BEGIN CONTENT-->
+                <div class="container-fluid">
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="portlet box">
+                                
+
+
+
+                                <div class="portlet-header titleDetailProject" >
+                                    <div class="caption" style="padding: 10px;" id="nameDepartment">
+                                    </div>
+                                    <div class="tools">
+                                        <!--
+                                        <i class="fa fa-chevron-up"></i>
+                                        <i data-toggle="modal" data-target="#modal-config" class="fa fa-cog"></i>
+                                        <i class="fa fa-refresh"></i>
+                                        <i class="fa fa-times"></i>
+                                        -->
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    
+
+                                    <div class="row" id="obra-container-body">
+                                        
+                                        <div class="container">
+                                            
+                                    
+                                            <div>
+                                            <i class="fas fa-tools icontitle" ></i> 
+                                            <hr>
+                                            </div>
+                                    
+                                    
+                                            <div class="row">
+                                                <div class="col-md-6 ">
+                                                    
+                                                    <div class="row rowi">
+                                                        <div class="col-sm-12">
+                                                            <span class="titleField">Municipio:</span>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <span class="valueField" id="municipioField">  </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                    
+                                                <div class="col-md-6 ">
+                                                    <div class="row rowi">
+                                                        <div class="col-sm-12">
+                                                            <span class="titleField">Categoría:</span>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <span class="valueField" id="categoriaField">  </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    
+                                    
+                                    
+                                            <div>
+                                            <i class="fas fa-file-contract icontitle"></i>
+                                            <hr>
+                                            </div>
+                                                
+                                    
+                                            <div class="row">
+
+
+
+
+                                                <div class="col-md-6 ">
+                                                    
+                                                    <div class="row rowi">
+                                                        <div class="col-sm-12">
+                                                            <span class="titleField">Contratista:</span>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <span class="valueField" id="empresaField"></span>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row rowi">
+                                                        <div class="col-sm-12">
+                                                            <span class="titleField">Número de contrato:</span>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <span class="valueField" id="numero_contratoField"></span>
+                                                        </div>
+                                                    </div>
+
+                                    
+                                                    <div class="row rowi">
+                                                        <div class="col-sm-12">
+                                                            <span class="titleField">Monto contratado:</span>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <span class="valueField" id="monto_contratoField"></span>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row rowi">
+                                                        <div class="col-sm-12">
+                                                            <span class="titleField">Inicio de obra según contrato:</span>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <span class="valueField" id="inicio_obra_segun_contratoField"></span>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row rowi">
+                                                        <div class="col-sm-12">
+                                                            <span class="titleField">Termino de obra según contrato:</span>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <span class="valueField" id="termino_obra_segun_contratoField"></span>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row rowi">
+                                                        <div class="col-sm-12">
+                                                            <span class="titleField">Fecha de pago anticipo:</span>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <span class="valueField" id="fecha_pago_anticipoField"></span>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col-md-6 ">
+
+
+                                                    <div class="row rowi">
+                                                        <div class="col-sm-12">
+                                                            <span class="titleField">Monto:</span>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <span class="valueField" id="monto_anticipoField"></span>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row rowi">
+                                                        <div class="col-sm-12">
+                                                            <span class="titleField">Fecha de convenio de ampliación de la obra:</span>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <span class="valueField" id="fecha_convenio_ampliacion_obraField"></span>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row rowi">
+                                                        <div class="col-sm-12">
+                                                            <span class="titleField">Convenio de ampliación económico:</span>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <span class="valueField" id="convenio_ampliacion_economicoField"></span>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row rowi">
+                                                        <div class="col-sm-12">
+                                                            <span class="titleField">Monto contrato final:</span>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <span class="valueField" id="monto_contrato_finalField"></span>
+                                                        </div>
+                                                    </div>
+  
+                                                   
+                                                    <div class="row rowi">
+                                                        <div class="col-sm-12">
+                                                            <span class="titleField">Total pagado:</span>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <span class="valueField" id="total_pagadoField"></span>
+                                                        </div>
+                                                    </div>                                                   
+
+
+                                                    <div class="row rowi">
+                                                        <div class="col-sm-12">
+                                                            <span class="titleField">Anticipo pendiente de amortizar:</span>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <span class="valueField" id="anticipo_pendiente_amortizarField"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    
+                                                </div>
+                                    
+                                            
+                                            
+                                            </div>
+                                            
+                                    
+                                    
+                                     
+                                            <div>
+                                            <i class="fas fa-user-check icontitle"></i>
+                                            <hr>
+                                            </div>
+                                           
+                                            
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 ">
+                                                   
+                                                    <div class="row rowi">
+                                                        <div class="col-sm-12">
+                                                            <span class="titleField">Avance financiero:</span>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                    
+                                                            <div class="progress" style="height: 2em; margin-top: 10px;">
+                                                                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:100%; background:linear-gradient(0deg, #202, #808);font-size: 1.3em; font-weight: bold;"  id="avance_financieroField" >
+                                                                    
+                                                                </div>
+                                                            </div>
+                                    
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="row rowi">
+                                                        <div class="col-sm-12">
+                                                            <span class="titleField">Avance físico verificado por la contraloría:</span>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="progress" style="height: 2em; margin-top: 10px;">
+                                                                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:80%; background:linear-gradient(0deg, #202, #808);font-size: 1.3em; font-weight: bold;" id="avance_fisico_verificado_contraloriaField">
+                                                                
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    
+                                                    <div class="row rowi"  style="display: none;">
+                                                        <div class="col-sm-12">
+                                                            <span class="titleField">Entregada al beneficiario:</span>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <span class="valueField" id="entregada_al_beneficiarioField"></span>
+                                                        </div>
+                                                    </div>
+                                                   
+
+                                                </div>
+                                    
+                                    
+                                                <div class="col-md-6 ">
+                                                    
+
+                                                    <div class="row rowi">
+                                                        <div class="col-sm-12">
+                                                            <span class="titleField">Fecha de verificación contraloría:</span>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <span class="valueField" id="fecha_de_verificacion_contraloriaField"></span>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="row rowi">
+                                                        <div class="col-sm-12">
+                                                            <span class="titleField">Estatus verificado por la contraloría:</span>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <span class="valueField" id="estatus_verificado_por_la_contraloriaField"></span>
+                                                        </div>
+                                                    </div>
+                                    
+                                                </div>
+                                            
+                                            
+                                              
+                                            </div>
+                                    
+                                            <br>
+                                            <div class="row">
+                                                 <div class="container-images-obra" id="registro_fotograficoField">
+                                                    <!--
+                                                    <i class="fas fa-arrow-circle-left" style="font-size: 29px; color: #bababa; vertical-align: sub;" ></i>
+                                                    -->
+                                                    <!--
+                                                    <i class="fas fa-arrow-circle-right" style="font-size: 29px; color: #bababa; vertical-align: sub;" ></i>
+                                                    -->
+                                                 
+                                                 </div>
+                                            </div>
+                                    
+                                    
+                                    
+                                            <div>
+                                            <i class="fas fa-map-marker-alt icontitle"></i>
+                                            <hr>
+                                            </div>
+                                    
+                                            <div class="row" >
+                                                <div id="map" style="width: 80%; margin: 30px auto;" >
+                                                </div>
+                                            </div>
+                                    
+                                    
+                                        </div>
+
+
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>                            
+
+                </div>
+
+            </div>
+        </div>
+        
+        
+        <!-- BEGIN SECOND MODAL TABLE -->
+        <div id="modalInfoObra" class="modal fade" data-backdrop-limit="1" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="modal2Title"></h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body" id="obraDetailModalBody">
+        
+                        <div id="containerModalImageZoom" style="text-align: center;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>                   
+        <!-- END SECOND MODAL TABLE -->
+        
+        
+        
+        <div class="lds-roller"  id="waintingAnimation" >
+            <div> </div>
+            <div> </div>
+            <div> </div>
+            <div> </div>
+            <div> </div>
+            <div> </div>
+            <div> </div>
+            <div> </div>
+        </div>
+        
+        <input id="projectId" type="hidden" value="{{ projectId }}" >
+        
+        <input id="catalogName" type="hidden" value="{{ catalog }}" >
+        
+        <input id="pathUrl" type="hidden" value="{{ pathUrl }}" >
+        
+        <input id="pagePrev" type="hidden" value="{{ pagePrev }}" >
+        
+        {% for cs in checkStates %}
+        <input id="checkState{{cs.id}}" type="hidden" value="{{ cs.title }}" >
+        {% endfor %}
+    
+        <!-- Jquery -->
+        <script src="/static/js/jquery-3.3.1.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="/static/js/bootstrap.min.js"></script>
+        <!-- Jquery UI -->
+        <script src="/static/js/jquery-ui.js"></script>
+        <!--  -->
+        <script src="/static/js/jsonpath-0.8.0.js"></script>
+        <!-- Highcharts -->
+        <script src="/static/js/highcharts.js"></script>
+        <!-- Highcharts 3D charts -->
+        <script src="/static/js/highcharts-3d.js"></script>
+        <!-- Module of Highcharts -->
+        <script src="/static/js/exporting.js"></script>
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+        
+
+        <!-- Map Leaflet -->
+        <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+
+        <!-- Js for crate list -->
+        <script src="/static/js/listRegisters.js"></script>
+        
+        <script> 
+        
+            $(document).ready(function () {
+            
+                //Button toggle for sidebar
+                $('#sidebarCollapse').on('click', function () {
+                    $('#sidebar').toggleClass('active');
+                });
+            
+                projectDetail.init();
+
+
+                $.fn.digits = function(){ 
+                    return this.each(function(){ 
+                        $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") ); 
+                    })
+                }
+
+            });
+
+        </script>
+    
+    </body>
+</html>

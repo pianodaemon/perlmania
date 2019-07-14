@@ -8,9 +8,7 @@
         
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         
-        
         <link rel="icon" href="/static/images/favi.png" type="image/gif" sizes="16x9">
-        
         
         <!--Loading JQuery UI css-->
         <link href="/static/css/jquery-ui.css" rel="stylesheet" type="text/css">
@@ -41,6 +39,7 @@
         <title> Contraloría y Transparencia Gubernamental Gobierno del Estado de Nuevo León </title>
     </head>
 
+
     <body class="  pace-done">
         <div class="pace  pace-inactive">
             <div class="pace-progress" data-progress-text="100%" data-progress="99" style="width: 100%;">  
@@ -62,10 +61,11 @@
                         <img width="244" height="119" class="img-fluid" src="/static/images/escudo.png">
                     </div>
                 </div>
-                <ul class="list-unstyled components">     
+                <ul class="list-unstyled components">      
                 
-                
-                           
+                          
+
+                          
                     <li class="menu-element"  id="{{ menu[1]['idHTML'] }}"  {{ menu[1]['isActive'] }}  >
                         <a  href="{{ menu[1]['url'] }}" >
                             <i class="{{ menu[1]['iconClass'] }}"></i>
@@ -89,7 +89,7 @@
                             <i class="{{ menu[4]['iconClass'] }}"> </i>
                             <span class="menu-title"> {{ menu[4]['name'] }} </span>
                         </a>
-                    </li>     
+                    </li>                   
                     <li class="menu-element"  id="{{ menu[5]['idHTML'] }}"  {{ menu[5]['isActive'] }} >
                         <a   href="{{ menu[5]['url'] }}" >
                             <i class="{{ menu[5]['iconClass'] }}"> </i>
@@ -97,15 +97,14 @@
                         </a>
                     </li>                   
                     
-                    
-                    
-                    
-                                   
-                    
+
+
+
+
                 </ul>
             </nav>
 
-
+            
 
             <!-- Page Content Holder -->
             <div id="content" class="container-fluid">
@@ -147,11 +146,13 @@
                         <li>
                             <i class="fa fa-home"></i>
                             &nbsp;
-                            <a  id="titleFirstLink"  href="{{ menu[0]['url'] }}">{{ menu[0]['name'] }}</a>
-                            &nbsp;&nbsp;
+                            <a   id="titleFirstLink" href="{{ pagePrev }}" > {{ menu[0]['name'] }} </a>
+                            &nbsp;
                             <i class="fa fa-angle-right"></i>
-                            &nbsp;&nbsp;
-                            <a  id="titleDepartment" > Crear {{ menu[0]['nameSingular'] }}  </a>
+                            &nbsp;
+                            <a   id="titleSecondLink">  </a>
+
+
                         </li>                         
                     </ol>
                     <div class="clearfix">
@@ -166,50 +167,71 @@
                     <br>
                     <div class="row">
                         <div class="col-lg-12">
-                             <div class="portlet box">
+                            <div class="portlet box">
                                 
 
-                                <br>
 
 
-
-                                <div class="portlet-body" >
-
-                                    <div action="/" id="addRegister">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label for="nameprovider">Nombre del Contratista </label> <br>
-                                                    <input type="text" name="nameprovider" class="form-control" id="nameprovider" >
-                                                    <p id="for_nameprovider" class="msjNotValid" >Ingresa un nombre </p>
-                                                </div>
-                                                
-                                                <div class="col-md-6">
-                                                    <label for="descriptionprovider">Descripción </label> <br>
-                                                    <input type="text" name="descriptionprovider" class="form-control" id="descriptionprovider" >
-                                                    <p id="for_descriptionprovider" class="msjNotValid" >Ingresa una descripción</p>
-                                                </div>
-                                            </div>
-                                                
-                                            <div class="contentOfButtonsActions" >
-                                                <button class="buttonsActions" onclick="addRegister();">Guardar</button>
-                                            </div>
-                                        </div>
+                                <div class="portlet-header" id="headerListProjects" >
+                                    <!--
+                                    <div class="caption">Estatus de Obras 15 Mayo 2019</div>
+                                    -->
+                                    <div id="nameStatusProjectTitle"></div>
+                                    <div class="tools">
+                                        <!--
+                                        <i class="fa fa-chevron-up"></i>
+                                        <i data-toggle="modal" data-target="#modal-config" class="fa fa-cog"></i>
+                                        <i class="fa fa-refresh"></i>
+                                        <i class="fa fa-times"></i>
+                                        -->
                                     </div>
+                                </div>
+                                
+                                <div class="portlet-body" id="table-obras">
 
                                 </div>
+
+
+
+                                <div class="" id="buttons_pagination"> </div>
+
+
                             </div>
                         </div>
+
                     </div>                            
                 </div>
 
             </div>
         </div>
+
+        <div class="lds-roller"  id="waintingAnimation" >
+            <div> </div>
+            <div> </div>
+            <div> </div>
+            <div> </div>
+            <div> </div>
+            <div> </div>
+            <div> </div>
+            <div> </div>
+        </div>
         
-        
-        <input id="catalogName" type="hidden" value="{{ catalog }}" >
+        <input id="catalogName"     type="hidden" value="{{ catalog }}" >
+        <input id="dependencyId"    type="hidden" value="{{ dependencyId }}" >
+        <input id="urlLink"         type="hidden" value="{{ urlLink }}" >
+        <input id="statusId"        type="hidden" value="{{ statusId }}" >
+        <input id="cityId"          type="hidden" value="{{ cityId }}" >
+        <input id="startDate"       type="hidden" value="{{ startDate      }}" >
+        <input id="endDate"         type="hidden" value="{{ endDate        }}" >
+        <input id="providerId"      type="hidden" value="{{ providerId     }}" >
+        <input id="fundingId"       type="hidden" value="{{ fundingId      }}" >
+        <input id="programId"       type="hidden" value="{{ programId      }}" >
+        <input id="adjudicationId"  type="hidden" value="{{ adjudicationId }}" >
 
 
+        {% for cs in checkStates %}
+        <input id="checkState{{cs.id}}" type="hidden" value="{{ cs.title }}" >
+        {% endfor %}
     
         <!-- Jquery -->
         <script src="/static/js/jquery-3.3.1.min.js"></script>
@@ -225,55 +247,29 @@
         <script src="/static/js/highcharts-3d.js"></script>
         <!-- Module of Highcharts -->
         <script src="/static/js/exporting.js"></script>
+        
 
-        <!-- Notify -->
-        <script src="/static/js/notify.min.js"></script>
-        
-        
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
         
 
-        
-        
+
         <!-- Js for crate list -->
         <script src="/static/js/listRegisters.js"></script>
-
-    
-        <script>
-
+        
+        <script> 
+        
             $(document).ready(function () {
-
+            
                 //Button toggle for sidebar
                 $('#sidebarCollapse').on('click', function () {
                     $('#sidebar').toggleClass('active');
                 });
+            
+                listStatusProjects.initList();
 
             });
 
-
-            function addRegister() {
-             
-                var catalog = document.getElementById('catalogName').value;
-                var url = '/'+ catalog +'/add';
-
-                var fieldsJson = [
-                    {'id' : 'nameprovider',         'type' : 'text'},
-                    {'id' : 'descriptionprovider',  'type' : 'text'},
-                ]
-
-                var send = validate.fields( fieldsJson );
-                
-                if (send){
-                    var dataJson = JSON.stringify({
-                        'title':        $('#nameprovider').val() , 
-                        'description':  $('#descriptionprovider').val()
-                    });
-                    POSTRegister.send( url, dataJson, 'create' );
-                }
-            
-            }
-
         </script>
-
+    
     </body>
 </html>
