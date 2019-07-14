@@ -61,9 +61,10 @@
                         <img width="244" height="119" class="img-fluid" src="/static/images/escudo.png">
                     </div>
                 </div>
-                <ul class="list-unstyled components">  
+                <ul class="list-unstyled components">      
                 
-                              
+                
+                          
                     <li class="menu-element"  id="{{ menu[1]['idHTML'] }}"  {{ menu[1]['isActive'] }}  >
                         <a  href="{{ menu[1]['url'] }}" >
                             <i class="{{ menu[1]['iconClass'] }}"></i>
@@ -94,12 +95,14 @@
                             <span class="menu-title"> {{ menu[5]['name'] }} </span>
                         </a>
                     </li>                   
-                                   
+                    
+                    
+                                  
                     
                 </ul>
             </nav>
 
-            
+
 
             <!-- Page Content Holder -->
             <div id="content" class="container-fluid">
@@ -135,14 +138,16 @@
 
 
                 <!--BEGIN TITLE & BREADCRUMB PAGE-->
-                
                 <div class="page-title-breadcrumb" id="title-breadcrumb-option-demo">
                     <ol class="breadcrumb page-breadcrumb">
                         <li>
                             <i class="fa fa-home"></i>
                             &nbsp;
-                            <a   id="titleFirstLink"> {{ menu[0]['name'] }} </a>
-
+                            <a  id="titleFirstLink" href="{{ menu[0]['url'] }}">{{ menu[0]['name'] }}</a>
+                            &nbsp;&nbsp;
+                            <i class="fa fa-angle-right"></i>
+                            &nbsp;&nbsp;
+                            <a  id="titleDepartment" > Registros de Obra </a>
                         </li>                         
                     </ol>
                     <div class="clearfix">
@@ -159,85 +164,106 @@
                         <div class="col-lg-12">
                              <div class="portlet box">
                                 
+
                                 <br>
 
 
 
-                                <div class="portlet-body" id="bodyTableProviders">
-                                    <div class=row>
-                                        <div class="col-md-6 order-1 order-md-0 ">
-                                            <div id="containerSearchButton" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2" >
-                                                <i class="fas fa-search"></i>
-                                                <span>Buscar</span>
-                                                <i class="fas fa-chevron-down"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 order-0 order-md-1 ">
-                                            <div id="containerAddButton">
-                                                <button onclick="listRegisters.linkAddProvider();" class="obrasButtonNormal"> Agregar {{ menu[0]['nameSingular'] }} </button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="portlet-body">
 
-
-
-
-
-
-                                    <div class="row searchColapseFields">
-                                        <div class="col">
-                                            <div class="collapse multi-collapse" id="multiCollapseExample2">
-                                                <div id="searchForm">
-                                                    <div class=row>
-                                                        <div class="col-md-6">
-                                                            <label for="searchRegisterSelect" class="searchFielsLabels"> Buscar por: </label> <br>
-                                                            <select name="searchRegisterSelect" class="form-control" id="searchRegisterSelect"  >
-                                                                <option value="title">Nombre</option>
-                                                                <option value="description">Descripción</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label for="searchRegisterField" class="searchFielsLabels"> Nombre</label> <br>
-                                                            <input type="text" name="searchRegisterField" class="form-control" id="searchRegisterField"  >
-                                                        </div>
-                                                    </div>
-                                                    <br>
-                                                    <div class=row>
-                                                        <div class="col-md-12">
-                                                            <div style="text-align: right;" >
-                                                                
-                                                                <button class="obrasButtonNormal" onclick="listRegisters.init();">  
-                                                                    <i class="fas fa-broom"></i> Limpiar Busqueda
-                                                                </button>
-                                                                <button class="obrasButtonNormal" onclick="listRegisters.initSearch();">  
-                                                                    <i class="fas fa-search"></i> Buscar
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
+                                    <div id="addRegister">
+                                        <div class="form-group">
+                                            
+                                            
+                                            
+                                            <div class="row rowAddRegister"  >
+                                                <div class="col-md-12">
+                                                    <span class="nameObraFollowUps"> {{dataProject.project_title}} <span>
                                                 </div>
+
+
+
                                             </div>
+
+
+                                            <div class="row rowAddRegister">
+                                                <div class="col-md-4">
+                                                    <span class="propertyProjectFollowUpsTitle"> Avance Físico: </span>
+                                                    <span class="propertyProjectFollowUps"> {{dataProject.verified_progress}}  %</span>
+                                                </div>
+                                            
+                                                <div class="col-md-4">
+                                                    <span class="propertyProjectFollowUpsTitle"> Municipio </span>
+                                                    <span class="propertyProjectFollowUps"  id="cityFollowUpsValue">  </span>
+                                                </div>                                               
+                                                
+                                                <div class="col-md-4">
+                                                    <span class="propertyProjectFollowUpsTitle"> Categoría </span>
+                                                    <span class="propertyProjectFollowUps"> {{dataProject.category}} </span>
+                                                </div>                                               
+                                            </div>                                       
+                                        
+                                              
+                                             <div class="row rowAddRegister">
+                                                <div class="col-md-4">
+                                                    <span class="propertyProjectFollowUpsTitle"> Dependencia </span>
+                                                    <span class="propertyProjectFollowUps"> {{dataProject.department}} </span>
+                                                </div>
+
+                                                 <div class="col-md-4">
+                                                     <span class="propertyProjectFollowUpsTitle"> Contrato </span>
+                                                     <span class="propertyProjectFollowUps"> {{dataProject.contract_number}} </span>
+                                                </div>
+
+                                            </div> 
+
                                         </div>
                                     </div>
 
 
-
-
+                                    <button style="float: right;" class="obrasButtonNormal"  onclick="listProjectsFollowUps.addFollowUp();"> Agregar Registro </button>
+                                    <br><br><br>
+                                    <span style="margin-left: 20px; font-size: 15px; font-weight: bold; color: #6a6a6a;"> Registros de Verificación </span>
 
 
                                     <table id="tableRegisters">
                                     </table>
 
 
+
                                     <div id="containerButtonsPagination">
                                     </div>
+
+
 
                                 </div>
                             </div>
                         </div>
                     </div>                            
                 </div>
+
+                    <!-- BEGIN MODAL -->
+                <div id="modalconfirm" class="modal fade" data-backdrop-limit="1" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" id="dialogConfirmModal">
+                        <div class="modal-content">
+                            <div class="modal-body" >
+                                
+                                <div id="containerModalImageZoom" style="text-align: center;">
+                                    <p id="messageconfirm">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        Seguro que desea eliminar este elemento
+                                    </p>    
+                                    <button type="button" class="close confirmDeleteButton cancelButtonConfirm" data-dismiss="modal" aria-hidden="true"  >Cancelar</button>
+                                    <button type="button" class="close confirmDeleteButton deleteButtonConfirm" data-dismiss="modal" aria-hidden="true" onclick="DELETERegisters.send();">Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                   
+                <!-- END MODAL -->
+        
+        
+        
 
             </div>
         </div>
@@ -252,9 +278,16 @@
             <div> </div>
             <div> </div>
         </div>
-        
+ 
+ 
+        <input id="cityIdValue" type="hidden" value="{{ dataProject.city_id }}" >
+        <input id="goToLinkRegister" type="hidden" value="{{ goToLinkRegister }}" >
+        <input id="goToAddRegister" type="hidden" value="{{ goToAddRegister }}" >
+        <input id="projectId" type="hidden" value="{{ dataProject.project_id }}" >
         <input id="catalogName" type="hidden" value="{{ catalog }}" >
+ 
 
+        
     
         <!-- Jquery -->
         <script src="/static/js/jquery-3.3.1.min.js"></script>
@@ -270,7 +303,7 @@
         <script src="/static/js/highcharts-3d.js"></script>
         <!-- Module of Highcharts -->
         <script src="/static/js/exporting.js"></script>
-        
+
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
         
         <!-- Notify -->
@@ -278,9 +311,10 @@
 
         <!-- Js for crate list -->
         <script src="/static/js/listRegisters.js"></script>
-        
-        <script>
 
+
+        <script>
+            
             $(document).ready(function () {
 
                 //Funcionamiento del boton de la barra de menu
@@ -288,9 +322,10 @@
                     $('#sidebar').toggleClass('active');
                 });
                 
+                var city = document.getElementById('cityIdValue').value
+                document.getElementById('cityFollowUpsValue').innerHTML = cities[ city ];
 
-                //Comienza los procedimientos para la lista de proveedores
-                listRegisters.init();
+                listProjectsFollowUps.init();
                 
                 //Cuando se modifica un registro y regresa a este listado muestra el mensaje
                 notifyRegisters.show();
@@ -298,30 +333,115 @@
 
 
 
+            var cities = [
+            '',
+                'Abasolo',
+                'Agualeguas',
+                'Los Aldamas',
+                'Allende',
+                'Anahuac',
+                'Apodaca',
+                'Aramberri',
+                'Bustamante',
+                'Cadereyta Jimenez',
+                'Carmen',
+                'Cerralvo',
+                'Cienega de Flores',
+                'China',
+                'Dr. Arroyo',
+                'Dr. Coss',
+                'Dr. Gonzalez',
+                'Galeana',
+                'Garcia',
+                'San Pedro Garza Garcia',
+                'Gral. Bravo',
+                'Gral. Escobedo',
+                'Gral. Teran',
+                'Gral. Trevi',
+                'Gral. Zaragoza',
+                'Gral. Zuazua',
+                'Guadalupe',
+                'Los Herreras',
+                'Higueras',
+                'Hualahuises',
+                'Iturbide',
+                'Juarez',
+                'Lampazos de Naranjo',
+                'Linares',
+                'Marin',
+                'Melchor Ocampo',
+                'Mier y Noriega',
+                'Mina',
+                'Montemorelos',
+                'Monterrey',
+                'Paras',
+                'Pesqueria',
+                'Los Ramones',
+                'Rayones',
+                'Sabinas Hidalgo',
+                'Salinas Victoria',
+                'San Nicolas de los Garza',
+                'Hidalgo',
+                'Santa Catarina',
+                'Santiago',
+                'Vallecillo',
+                'Villaldama'
+            ];
+
+
+
+            checkStages = [
+                '',
+                'TERMINADAS',
+                'EN TIEMPO', 
+                'CON RETRASO',
+                'RESCINDIDAS',
+                'NO INICIADAS',
+                'CON AVANCE FINANCIERO MAYOR AL FÍSICO',
+                'DE FUERZA CIVIL, POLICÍA  Y PENALES'
+            ];
+            
+            checkStagesClass = ['','checkStage1','checkStage2','checkStage3','checkStage4','checkStage5','checkStage6','checkStage7']
+
+
 
 
 
 
             var setTag = {
-                tr : function( title, description, idRegister){
+                tr : function( dateF, verifiedProgress, check_stage, followUpsId){
+                    checkStage = check_stage === null ? 'Sin registro' : checkStages[check_stage];
+                    var checkDateFormat = datesGENL.formatOrder(dateF);
                     strTr = `
-                        <tr idRegister="`+ idRegister +`" onclick="listRegisters.goToRegister(this);" >
-                            <td> `+ title +` </td>
-                            <td> `+ description +` </td>
+                        <tr idRegister="`+ followUpsId +`" onclick="listProjectsFollowUps.goToRegister(this);" >
+                            <td> `+ checkDateFormat +` </td>
+                            <td> `+ verifiedProgress +` %</td> 
+                            <td> <div class=`+checkStagesClass[check_stage]+` >`+ checkStage +` </div></td> 
                         </tr>
                     `;
                     return strTr;
                 },
                 button : function(init, numValueButton, isActive, searchBy, valueSearchBy){
-                    return '<button initL="'+ init +'" searchBy="'+ searchBy +'" valueSearchBy="'+ valueSearchBy +'"  onclick="listRegisters.actionButtonPagination(this)" class="button_pag" '+isActive+'>'+ numValueButton +'</button>';
+                    return '<button initL="'+ init +'" searchBy="'+ searchBy +'" valueSearchBy="'+ valueSearchBy +'"  onclick="listProjectsFollowUps.actionButtonPagination(this)" class="button_pag" '+isActive+'>'+ numValueButton +'</button>';
                 },
                 setTable : function(data){
                     
-                    var strTRs = '<tr> <th> Nombre </th>  <th> Descripción </th> </tr>';
+                    var strTRs = `
+                        <tr> 
+                            <th> Fecha de Verificación </th>  
+                            <th> Avance Físico </th> 
+                            <th> Estatus </th> 
+                        </tr>
+                    `;
 
-                    for( var d = 0; d< listRegisters.paginationStep ; d++){
+                    for( var d = 0; d< listProjectsFollowUps.paginationStep ; d++){
                         if(data[d]){
-                            strTRs += setTag.tr( data[d].title, data[d].description, data[d].id );
+                            strTRs += setTag.tr( 
+                                data[d].check_date,
+                                data[d].verified_progress, 
+                                data[d].check_stage, 
+                                data[d].id 
+                            );
                         }
                     }
 
@@ -330,12 +450,12 @@
                 },                                      //searchBy
                 createButtons: function( numAllRegisters, filterBy, valueSearchBy ){
                     
-                    var numOfButtons = Math.ceil( numAllRegisters/listRegisters.paginationStep ) ;
-                    listRegisters.numberOfButtons = numOfButtons ;
+                    var numOfButtons = Math.ceil( numAllRegisters/listProjectsFollowUps.paginationStep ) ;
+                    listProjectsFollowUps.numberOfButtons = numOfButtons ;
                     
                     var strAllButtons = '';
                     for(var b=0; b< numOfButtons ; b++ ){
-                        var start = b * listRegisters.paginationStep ;
+                        var start = b * listProjectsFollowUps.paginationStep ;
                         var numLebelButton = b + 1;
                         var isActive = b==0? 'active' : '';
                         strAllButtons += setTag.button( start, numLebelButton, isActive, filterBy, valueSearchBy )
@@ -346,11 +466,7 @@
             };
 
 
-
-
-
-        
         </script>
-    
+
     </body>
 </html>

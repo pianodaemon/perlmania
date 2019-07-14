@@ -8,7 +8,9 @@
         
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         
+        
         <link rel="icon" href="/static/images/favi.png" type="image/gif" sizes="16x9">
+        
         
         <!--Loading JQuery UI css-->
         <link href="/static/css/jquery-ui.css" rel="stylesheet" type="text/css">
@@ -29,6 +31,9 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         
  
+        <!-- Select2 -->
+        <link href="/static/css/select2.min.css" rel="stylesheet" />
+        
         <!-- CSS for Lato family font -->
         <link href="/static/css/cssLaton.css" rel="stylesheet">
         
@@ -38,7 +43,6 @@
 
         <title> Contraloría y Transparencia Gubernamental Gobierno del Estado de Nuevo León </title>
     </head>
-
 
     <body class="  pace-done">
         <div class="pace  pace-inactive">
@@ -62,8 +66,6 @@
                     </div>
                 </div>
                 <ul class="list-unstyled components">       
-                
-                
                 
                          
                     <li class="menu-element"  id="{{ menu[1]['idHTML'] }}"  {{ menu[1]['isActive'] }}  >
@@ -89,17 +91,14 @@
                             <i class="{{ menu[4]['iconClass'] }}"> </i>
                             <span class="menu-title"> {{ menu[4]['name'] }} </span>
                         </a>
-                    </li>    
+                    </li>  
                     <li class="menu-element"  id="{{ menu[5]['idHTML'] }}"  {{ menu[5]['isActive'] }} >
                         <a   href="{{ menu[5]['url'] }}" >
                             <i class="{{ menu[5]['iconClass'] }}"> </i>
                             <span class="menu-title"> {{ menu[5]['name'] }} </span>
                         </a>
                     </li>                   
-                    
-                    
-                    
-                                
+                                    
                     
                 </ul>
             </nav>
@@ -139,17 +138,23 @@
                 </nav>
 
 
-                <!--BEGIN TITLE & BREADCRUMB PAGE-->                
+                <!--BEGIN TITLE & BREADCRUMB PAGE-->
+                
                 <div class="page-title-breadcrumb" id="title-breadcrumb-option-demo">
                     <ol class="breadcrumb page-breadcrumb">
                         <li>
                             <i class="fa fa-home"></i>
                             &nbsp;
-                            <a  id="titleFirstLink" href="{{ menu[0]['url'] }}">{{ menu[0]['name'] }}</a>
+                            <a  id="titleFirstLink"  href="{{ menu[0]['url'] }}">{{ menu[0]['name'] }}</a>
                             &nbsp;&nbsp;
                             <i class="fa fa-angle-right"></i>
                             &nbsp;&nbsp;
-                            <a  id="titleDepartment" > Editar {{ menu[0]['nameSingular'] }}  </a>
+                            <a  id="titleProjectRegister"  style="{{ displaNoneFields }}" > Registro de Obras </a>
+                            &nbsp;&nbsp;
+                            <i class="fa fa-angle-right"></i>
+                            &nbsp;&nbsp;
+                            <a  id="titleDepartment"   style="{{ displaNoneFields }}" > Editar {{ menu[0]['nameSingular'] }}  </a>
+
                         </li>                         
                     </ol>
                     <div class="clearfix">
@@ -171,31 +176,98 @@
 
 
 
-                                <div class="portlet-body">
-                                    
-                                    <h4>{{ titleDontExist }}</h4>
-                                    <div id="addRegister" style="{{ displayExistRegister }}" >
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label for="nameprovider">Nombre del Contratista </label> <br>
-                                                    <input type="text" name="nameprovider" class="form-control" id="nameprovider" value="{{ data.title }}">
-                                                    <p id="for_nameprovider" class="msjNotValid" >Ingresa un nombre </p>
-                                                </div>
-                                                
-                                                <div class="col-md-6">
-                                                    <label for="descriptionprovider">Descripción </label> <br>
-                                                    <input type="text" name="descriptionprovider" class="form-control" id="descriptionprovider" value="{{ data.description }}">
-                                                    <p id="for_descriptionprovider" class="msjNotValid" >Ingresa una descripción</p>
-                                                </div>
+                                <div class="portlet-body" >
+
+
+                                    <div action="/" id="addRegister">
+                                        <div class="col-md-12">
+                                            <h4> {{ projectTitle }} </h4>
+                                        </div>
+
+                                        <div class="form-group" style="{{ displaNoneFields }}" >
+
+                                            <div class="row rowAddRegister"  >
                                             </div>
-                                                
+
+
+                                            <div class="row rowAddRegister">
+                                                <div class="col-md-6">
+                                                    <label for="verified_progress" class="indicatorName"> Avance Físico </label> <br>
+                                                    <input type="number" name="verified_progress" class="form-control" id="verified_progress" value="{{data.verified_progress}}">
+                                                    <p id="for_verified_progress" class="msjNotValid" > </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="check_date" class="indicatorName"> Fecha de verificación </label> <br>
+                                                    <input type="text" name="check_date" class="form-control" id="check_date" value="" >
+                                                    <p id="for_check_date" class="msjNotValid" > </p>
+                                                </div>
+                                               
+                                            </div>                                       
+                                        
+                                              
+                                             <div class="row rowAddRegister">
+                                                <div class="col-md-6">
+                                                    <label for="financial_advance" class="indicatorName"> Avance Financiero </label> <br>
+                                                    <input type="number" name="financial_advance" class="form-control" id="financial_advance" value="{{data.financial_advance}}" >
+                                                    <p id="for_financial_advance" class="msjNotValid" > </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="check_stage" class="indicatorName"> Estatus de Verificación </label> <br>
+                                                    <select name="check_stage" class="form-control" id="check_stage" >
+                                                        <option value="0"> Selecciona un Estatus </option>
+                                                        {% for cState in checkStages %}
+                                                        <option value="{{ cState.id }}"> {{ cState.title }} </option>
+                                                        {% endfor %}                                                      
+                                                    </select>
+
+                                                    <p id="for_check_stage" class="msjNotValid" > </p>
+                                                </div>
+
+                                            </div>  
+
+
+                                            <div class="row rowAddRegister">
+                                                <div class="col-md-12">
+                                                    <div id="containerImagesFollowUp">
+                                                    
+                                                    </div>
+                                                </div>
+                                            </div> 
+
+
+                                            <div class="row rowAddRegister">
+                                                <div class="col-md-12">
+
+                                                    <div class="upload-btn-wrapper">
+                                                        <button class="btnUp">Subir imagen <i class="fas fa-upload"></i> </button>
+                                                        <input type="file" name="file[]" multiple="" id="file">
+                                                    </div>
+                                                    <div id="nameFileUpload" style="display: inline-block;vertical-align: 1em;"></div>
+                                                    <p id="for_file" class="msjNotValid" > </p>
+
+                                                </div>
+                                            </div> 
+
+
+
+
+
+
+
+
+
+
                                             <div class="contentOfButtonsActions" >
-                                                <button onclick="saveRegister();" class="buttonsActions saveRegisterButton"> Guardar </button>
-                                                <button onclick="DELETERegisters.warning();" class="buttonsActions deleteRegisterButton"> Eliminar </button>
+                                                <button class="buttonsActions" onclick="saveRegister();">Guardar</button>
+                                                <button onclick="DELETEFollowUp.warning();" class="buttonsActions deleteRegisterButton"> Eliminar </button>
                                             </div>
                                         </div>
                                     </div>
+
+
+
+
+
 
                                 </div>
                             </div>
@@ -203,7 +275,9 @@
                     </div>                            
                 </div>
 
-                    <!-- BEGIN MODAL -->
+
+
+                <!-- BEGIN MODAL -->
                 <div id="modalconfirm" class="modal fade" data-backdrop-limit="1" tabindex="-1" role="dialog">
                     <div class="modal-dialog" id="dialogConfirmModal">
                         <div class="modal-content">
@@ -215,25 +289,33 @@
                                         Seguro que desea eliminar este elemento
                                     </p>    
                                     <button type="button" class="close confirmDeleteButton cancelButtonConfirm" data-dismiss="modal" aria-hidden="true"  >Cancelar</button>
-                                    <button type="button" class="close confirmDeleteButton deleteButtonConfirm" data-dismiss="modal" aria-hidden="true" onclick="DELETERegisters.send();">Eliminar</button>
+                                    <button type="button" class="close confirmDeleteButton deleteButtonConfirm" data-dismiss="modal" aria-hidden="true" onclick="DELETEFollowUp.send();">Eliminar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>                   
                 <!-- END MODAL -->
-        
-        
-        
+
+
+
+
+
 
             </div>
         </div>
-
-        <input id="registerid" type="hidden" value="{{ data.id }}" >
-        <input id="catalogName" type="hidden" value="{{ catalog }}" >
- 
-
         
+        
+        <input id="check_stage_value" type="hidden" value="{{ data.check_stage }}" >
+        <input id="check_date_value" type="hidden" value="{{ data.check_date }}" >
+        <input id="img_paths" type="hidden" value="{{ data.img_paths }}" >
+        <input id="pathUrl" type="hidden" value="{{ pathUrl }}" >
+
+        <input id="catalogName" type="hidden" value="{{ catalog }}" >
+
+        <input id="projectid" type="hidden" value="{{ data.project }}" >
+        <input id="registerid" type="hidden" value="{{ data.id }}" >
+
     
         <!-- Jquery -->
         <script src="/static/js/jquery-3.3.1.min.js"></script>
@@ -250,15 +332,22 @@
         <!-- Module of Highcharts -->
         <script src="/static/js/exporting.js"></script>
 
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+        <!-- Select2 -->
+        <script src="/static/js/select2.min.js"></script>
         
         <!-- Notify -->
         <script src="/static/js/notify.min.js"></script>
+        
+        
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+        
 
+        
+        
         <!-- Js for crate list -->
         <script src="/static/js/listRegisters.js"></script>
 
-
+    
         <script>
 
             $(document).ready(function () {
@@ -268,37 +357,109 @@
                     $('#sidebar').toggleClass('active');
                 });
 
+
+                //Muestran las fechas que se deben ver
+                document.getElementById('check_date').value = datesGENL.formatOrder($('#check_date_value').val() );
+
+                //Preselecciones, por que no agarra value el select
+                document.getElementById('check_stage').value =       document.getElementById('check_stage_value').value ;        
+
+                //Set images
+                imagesFollowUps.init();
+                
+                
+                $( "#check_date" ).datepicker( datesGENL.formatPicker );
+
+                $("#file").change(function() {
+                    imagesFollowUps.inputFileChange();
+                });
+
+                imagesFollowUps.inputFileChange();
+
+                var urlTitleProjectRegister = '/follow_ups/project/' + document.getElementById('projectid').value;
+                document.getElementById('titleProjectRegister').setAttribute('href', urlTitleProjectRegister )
             });
+
 
 
 
             function saveRegister(){
                                 
                 var idRegister  = $('#registerid').val();
+                var idProject   = $('#projectid').val();
                 var catalog = document.getElementById('catalogName').value;
-                var url = '/'+ catalog +'/edit/' + idRegister;
+                var url = catalog + idRegister;
 
-                //Pass id inputs and type of validate for validate
+
+                
+                //Fields for validate
                 var fieldsJson = [
-                    {'id' : 'nameprovider',         'type' : 'text'},
-                    {'id' : 'descriptionprovider',  'type' : 'text'},
-                ]
+                    {'id' : 'verified_progress',  'type' : 'intMil'},
+                    {'id' : 'check_date',         'type' : 'date'},
+                    {'id' : 'check_stage',        'type' : 'selectNumber'},
+                    {'id' : 'financial_advance',  'type' : 'intMil'},
+                ];
 
                 var send = validate.fields( fieldsJson );
-                
-                if (send){
-                    //Create json send
+                var sendImage = validate.image( 'file' )
+ 
+                if (send && sendImage){
+                    //////Aqui si se envia el id
                     var dataJson = JSON.stringify({
-                        'id':           idRegister,
-                        'title':        $('#nameprovider').val() , 
-                        'description':  $('#descriptionprovider').val()
+                        'id'                : idRegister,
+                        'project'           : idProject,
+                        'verified_progress' : $('#verified_progress').val(),
+                        'financial_advance' : $('#financial_advance').val(),
+                        'img_paths'         : $('#img_paths').val(),
+                        'check_stage'       : $('#check_stage').val(),
+                        'check_date'        : datesGENL.formatDateSend( $('#check_date').val() ),
+                        'inceptor_uuid'     : ''
                     });
-                    POSTRegister.send( url, dataJson, 'update' );
+
+                    POSTFollowUps.send( url, dataJson, 'update' );
                 }
-
-
             }
 
+            
+            
+
+            
+            var DELETEFollowUp = {
+                messages : {
+                    'success': 'El registro fué eliminado',
+                    'fail'   : 'El registro no pudo ser eliminado'
+                },
+                warning : function warningDelete(){
+                    $('#modalconfirm').modal({ show: true });
+                    $('.modal-backdrop').removeClass("modal-backdrop");  
+                },
+                send: function(){
+                        
+                    var idRegister  = $('#registerid').val();
+                    var idProject   = $('#projectid').val();
+                    var catalog = document.getElementById('catalogName').value;
+                    var url = catalog + idRegister;
+
+                    
+                    $.ajax({
+                        url: url,
+                        type: 'DELETE',
+                        success: function (data) {
+                            if( data.status_code >=200 && data.status_code < 300 ) {
+                                var message = DELETEFollowUp.messages.success;
+                            }else if( data.status_code >=400 && data.status_code < 600 ) {
+                                var message = DELETEFollowUp.messages.fail;
+                            }else {
+                                var message = DELETEFollowUp.messages.fail;
+                            }
+            
+                            notifyRegisters.set( 'true', message );
+                            window.location.href = document.getElementById('titleProjectRegister').href;
+                        }
+                    });
+                    
+                }
+            };
         </script>
 
     </body>

@@ -30,7 +30,9 @@
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         
- 
+        <!-- Select2 -->
+        <link href="/static/css/select2.min.css" rel="stylesheet" />
+        
         <!-- CSS for Lato family font -->
         <link href="/static/css/cssLaton.css" rel="stylesheet">
         
@@ -90,6 +92,12 @@
                             <span class="menu-title"> {{ menu[4]['name'] }} </span>
                         </a>
                     </li>                     
+                    <li class="menu-element"  id="{{ menu[5]['idHTML'] }}"  {{ menu[5]['isActive'] }} >
+                        <a   href="{{ menu[5]['url'] }}" >
+                            <i class="{{ menu[5]['iconClass'] }}"> </i>
+                            <span class="menu-title"> {{ menu[5]['name'] }} </span>
+                        </a>
+                    </li>                   
                     
                                    
                     
@@ -193,8 +201,9 @@
                                                     <p id="for_initial_contracted_amount" class="msjNotValid"  > </p>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="provider" class="indicatorName"> Empresa </label> <br>
+                                                    <label for="provider" class="indicatorName"> Contratista </label> <br>
                                                     <select name="provider" class="form-control" id="provider" >
+                                                        <option value="0" > Selecciona un Contratista </option>
                                                         {% for provider in providers %}
                                                         <option value="{{ provider.id }}"> {{ provider.title }} </option>
                                                         {% endfor %}
@@ -231,14 +240,14 @@
 
                                              <div class="row rowAddRegister">
                                                 <div class="col-md-6">
-                                                    <label for="ext_agreement_amount" class="indicatorName"> convenio de ampliación económico </label> <br>
-                                                    <input type="number" name="ext_agreement_amount" class="form-control" id="ext_agreement_amount" >
-                                                    <p id="for_ext_agreement_amount" class="msjNotValid" > </p>
-                                                </div>
-                                                <div class="col-md-6">
                                                     <label for="ext_agreement" class="indicatorName">  fecha de convenio ampliación de obra </label> <br>
                                                     <input type="text" name="ext_agreement" class="form-control" id="ext_agreement" >
                                                     <p id="for_ext_agreement" class="msjNotValid" > </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="ext_agreement_amount" class="indicatorName"> convenio de ampliación económico </label> <br>
+                                                    <input type="number" name="ext_agreement_amount" class="form-control" id="ext_agreement_amount" >
+                                                    <p id="for_ext_agreement_amount" class="msjNotValid" > </p>
                                                 </div>
                                             </div> 
 
@@ -264,6 +273,7 @@
                                                 <div class="col-md-6">
                                                     <label for="delivery_stage" class="indicatorName"> Estado de Entrega </label> <br>
                                                     <select name="delivery_stage" class="form-control" id="delivery_stage"  >
+                                                        <option value="0">Selecciona el Estado de Entega</option>
                                                         <option value="1">Verde</option>
                                                         <option value="2">Amarillo</option>
                                                         <option value="3">Naranja</option>
@@ -273,6 +283,47 @@
                                                 </div>
                                                 
                                             </div> 
+
+
+                                            <div class="row rowAddRegister">
+                                                <div class="col-md-6">
+                                                    <label for="adjudication" class="indicatorName"> Proceso de Adjudicación </label> <br>
+                                                    <select name="adjudication" class="form-control" id="adjudication"  >
+                                                        <option value="0">--Selecciona el Proceso de Adjudicación--</option>
+                                                        <option value="1">Licitación Pública</option>
+                                                        <option value="2">Adjudicación Directa</option>
+                                                        <option value="3">Invitación Restringida</option>
+                                                    </select>
+                                                    <p id="for_adjudication" class="msjNotValid" > </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="funding" class="indicatorName"> Tipo de Fondo </label> <br>
+                                                    <select name="funding" class="form-control" id="funding"  >
+                                                        <option value="0">--Selecciona el Tipo de Fondo--</option>
+                                                        <option value="1">Federal</option>
+                                                        <option value="2">Estatal</option>
+                                                    </select>
+                                                    <p id="for_funding" class="msjNotValid" > </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="row rowAddRegister">
+                                                <div class="col-md-6">
+                                                    <label for="program" class="indicatorName"> Programa </label> <br>
+                                                    <select name="program" class="form-control" id="program"  >
+                                                        <option value="0">--Selecciona el Programa--</option>
+                                                    </select>
+                                                    <p id="for_program" class="msjNotValid" > </p>
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+
+
 
                                              <div class="row rowAddRegister">
                                                 <div class="col-md-12">
@@ -326,6 +377,9 @@
         <!-- Module of Highcharts -->
         <script src="/static/js/exporting.js"></script>
 
+        <!-- Select2 -->
+        <script src="/static/js/select2.min.js"></script>
+        
         <!-- Notify -->
         <script src="/static/js/notify.min.js"></script>
         
@@ -353,6 +407,12 @@
                 $( "#down_payment" ).datepicker( datesGENL.formatPicker );
                 $( "#ext_agreement" ).datepicker( datesGENL.formatPicker );
 
+                $('#provider').select2();
+
+                
+                document.getElementById('initial_contracted_amount').onkeyup = sumInicialAmountConvenio;
+                document.getElementById('ext_agreement_amount').onkeyup = sumInicialAmountConvenio;
+
             });
 
 
@@ -365,8 +425,8 @@
                 var fieldsJson = [
                     {'id' : 'number',                   'type' : 'text'},
                     {'id' : 'title',                    'type' : 'text'},
-                    //{'id' : 'provider',               'type' : 'number'},
-                    //{'id' : 'delivery_stage',         'type' : 'number'},
+                    {'id' : 'provider',                 'type' : 'selectNumber'},
+                    {'id' : 'delivery_stage',           'type' : 'selectNumber'},
                     {'id' : 'initial_contracted_amount','type' : 'float'},
                     {'id' : 'kickoff',                  'type' : 'date'},
                     {'id' : 'ending',                   'type' : 'date'},
@@ -399,12 +459,27 @@
                         'ext_agreement_amount'      : $('#ext_agreement_amount').val(),               
                         'final_contracted_amount'   : $('#final_contracted_amount').val(),            
                         'total_amount_paid'         : $('#total_amount_paid').val(),                  
+                        'adjudication'              : $('#adjudication').val(),                  
+                        'funding'                   : $('#funding').val(),                  
+                        'program'                   : $('#program').val(),                  
                         'outstanding_down_payment'  : $('#outstanding_down_payment').val(),           
                     });
 
                     POSTRegister.send( url, dataJson, 'create' );
                 }
             
+            }
+
+
+            function sumInicialAmountConvenio(){
+        
+                var ica = document.getElementById('initial_contracted_amount').value;
+                var ega = document.getElementById('ext_agreement_amount').value;
+
+                if( parseFloat(ica) && parseFloat(ega)  ){
+                    document.getElementById('final_contracted_amount').value = parseFloat(ica) + parseFloat(ega);
+                }
+                
             }
 
         </script>

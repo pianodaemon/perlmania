@@ -90,6 +90,12 @@
                             <span class="menu-title"> {{ menu[4]['name'] }} </span>
                         </a>
                     </li>     
+                    <li class="menu-element"  id="{{ menu[5]['idHTML'] }}"  {{ menu[5]['isActive'] }} >
+                        <a   href="{{ menu[5]['url'] }}" >
+                            <i class="{{ menu[5]['iconClass'] }}"> </i>
+                            <span class="menu-title"> {{ menu[5]['name'] }} </span>
+                        </a>
+                    </li>                   
                     
   
                     
@@ -271,11 +277,10 @@
         <!-- Module of Highcharts -->
         <script src="/static/js/exporting.js"></script>
         
-        <script src="/static/js/obras.js"></script>
-
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
         
-
+        <!-- Notify -->
+        <script src="/static/js/notify.min.js"></script>
 
         <!-- Js for crate list -->
         <script src="/static/js/listRegisters.js"></script>
@@ -292,6 +297,9 @@
 
                 //Comienza los procedimientos para la lista de proveedores
                 listRegisters.init();
+                
+                //Cuando se modifica un registro y regresa a este listado muestra el mensaje
+                notifyRegisters.show();
             });
 
 

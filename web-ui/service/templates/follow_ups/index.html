@@ -29,6 +29,9 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         
  
+        <!-- Select2 -->
+        <link href="/static/css/select2.min.css" rel="stylesheet" />
+ 
         <!-- CSS for Lato family font -->
         <link href="/static/css/cssLaton.css" rel="stylesheet">
         
@@ -172,11 +175,7 @@
                                                 <i class="fas fa-chevron-down"></i>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 order-0 order-md-1 ">
-                                            <div id="containerAddButton">
-                                                <button onclick="listRegisters.linkAddProvider();" class="obrasButtonNormal"> Agregar {{ menu[0]['nameSingular'] }} </button>
-                                            </div>
-                                        </div>
+    
                                     </div>
 
 
@@ -191,14 +190,16 @@
                                                     <div class=row>
                                                         <div class="col-md-6">
                                                             <label for="searchRegisterSelect" class="searchFielsLabels"> Buscar por: </label> <br>
-                                                            <select name="searchRegisterSelect" class="form-control" id="searchRegisterSelect"  >
-                                                                <option value="title">Nombre</option>
-                                                                <option value="description">Descripción</option>
+                                                            <select name="searchRegisterSelect" onchange="listProjectsFollowUps.changeSarchSelect()" class="form-control" id="searchRegisterSelect"  >
+                                                                <option value="category" selected >Categoría</option>
+                                                                <option value="project">Obra</option>
+                                                                <option value="contract">Contrato</option>
                                                             </select>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="searchRegisterField" class="searchFielsLabels"> Nombre</label> <br>
-                                                            <input type="text" name="searchRegisterField" class="form-control" id="searchRegisterField"  >
+                                                            <select name="searchRegisterField" class="form-control" id="searchRegisterField"  >
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <br>
@@ -206,10 +207,10 @@
                                                         <div class="col-md-12">
                                                             <div style="text-align: right;" >
                                                                 
-                                                                <button class="obrasButtonNormal" onclick="listRegisters.init();">  
+                                                                <button class="obrasButtonNormal" onclick="listProjectsFollowUps.init();">  
                                                                     <i class="fas fa-broom"></i> Limpiar Busqueda
                                                                 </button>
-                                                                <button class="obrasButtonNormal" onclick="listRegisters.initSearch();">  
+                                                                <button class="obrasButtonNormal" onclick="listProjectsFollowUps.initSearch();">  
                                                                     <i class="fas fa-search"></i> Buscar
                                                                 </button>
                                                             </div>
@@ -227,6 +228,7 @@
 
 
                                     <table id="tableRegisters">
+
                                     </table>
 
 
@@ -254,6 +256,7 @@
         </div>
         
         <input id="catalogName" type="hidden" value="{{ catalog }}" >
+        <input id="goToLinkRegister" type="hidden" value="{{ goToLinkRegister }}" >
 
     
         <!-- Jquery -->
@@ -271,10 +274,12 @@
         <!-- Module of Highcharts -->
         <script src="/static/js/exporting.js"></script>
         
+        <!-- Select2 -->
+        <script src="/static/js/select2.min.js"></script>
+        
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
         
-        <!-- Notify -->
-        <script src="/static/js/notify.min.js"></script>
+
 
         <!-- Js for crate list -->
         <script src="/static/js/listRegisters.js"></script>
@@ -289,39 +294,124 @@
                 });
                 
 
-                //Comienza los procedimientos para la lista de proveedores
-                listRegisters.init();
-                
-                //Cuando se modifica un registro y regresa a este listado muestra el mensaje
-                notifyRegisters.show();
+                //Comienza los procedimientos 
+                listProjectsFollowUps.init();
             });
 
 
+            
 
+            var cities = [
+            '',
+                'Abasolo',
+                'Agualeguas',
+                'Los Aldamas',
+                'Allende',
+                'Anahuac',
+                'Apodaca',
+                'Aramberri',
+                'Bustamante',
+                'Cadereyta Jimenez',
+                'Carmen',
+                'Cerralvo',
+                'Cienega de Flores',
+                'China',
+                'Dr. Arroyo',
+                'Dr. Coss',
+                'Dr. Gonzalez',
+                'Galeana',
+                'Garcia',
+                'San Pedro Garza Garcia',
+                'Gral. Bravo',
+                'Gral. Escobedo',
+                'Gral. Teran',
+                'Gral. Trevi',
+                'Gral. Zaragoza',
+                'Gral. Zuazua',
+                'Guadalupe',
+                'Los Herreras',
+                'Higueras',
+                'Hualahuises',
+                'Iturbide',
+                'Juarez',
+                'Lampazos de Naranjo',
+                'Linares',
+                'Marin',
+                'Melchor Ocampo',
+                'Mier y Noriega',
+                'Mina',
+                'Montemorelos',
+                'Monterrey',
+                'Paras',
+                'Pesqueria',
+                'Los Ramones',
+                'Rayones',
+                'Sabinas Hidalgo',
+                'Salinas Victoria',
+                'San Nicolas de los Garza',
+                'Hidalgo',
+                'Santa Catarina',
+                'Santiago',
+                'Vallecillo',
+                'Villaldama'
+            ];
 
-
+            checkStages = [
+                '',
+                'TERMINADAS',
+                'EN TIEMPO', 
+                'CON RETRASO',
+                'RESCINDIDAS',
+                'NO INICIADAS',
+                'CON AVANCE FINANCIERO MAYOR AL FÍSICO',
+                'DE FUERZA CIVIL, POLICÍA  Y PENALES'
+            ];
+            
+            checkStagesClass = ['','checkStage1','checkStage2','checkStage3','checkStage4','checkStage5','checkStage6','checkStage7']
 
 
             var setTag = {
-                tr : function( title, description, idRegister){
+                tr : function( title, city, category, department, contract_number, check_stage, projectId){
+                    checkStage = check_stage === null ? 'Sin registro' : checkStages[check_stage];
                     strTr = `
-                        <tr idRegister="`+ idRegister +`" onclick="listRegisters.goToRegister(this);" >
+                        <tr idRegister="`+ projectId +`" onclick="listProjectsFollowUps.goToRegister(this);" >
                             <td> `+ title +` </td>
-                            <td> `+ description +` </td>
+                            <td> `+ city +` </td> 
+                            <td> `+ category +` </td> 
+                            <td> `+ department +` </td> 
+                            <td> <span class="contractInTable"> `+ contract_number +`</span> </td> 
+                            <td> <div class=`+checkStagesClass[check_stage]+` >`+ checkStage +` </div></td> 
                         </tr>
                     `;
                     return strTr;
                 },
                 button : function(init, numValueButton, isActive, searchBy, valueSearchBy){
-                    return '<button initL="'+ init +'" searchBy="'+ searchBy +'" valueSearchBy="'+ valueSearchBy +'"  onclick="listRegisters.actionButtonPagination(this)" class="button_pag" '+isActive+'>'+ numValueButton +'</button>';
+                    return '<button initL="'+ init +'" searchBy="'+ searchBy +'" valueSearchBy="'+ valueSearchBy +'"  onclick="listProjectsFollowUps.actionButtonPagination(this)" class="button_pag" '+isActive+'>'+ numValueButton +'</button>';
                 },
                 setTable : function(data){
                     
-                    var strTRs = '<tr> <th> Nombre </th>  <th> Descripción </th> </tr>';
+                    var strTRs = `
+                        <tr> 
+                            <th> Obra </th>  
+                            <th> Municipio </th> 
+                            <th> Categoría </th> 
+                            <th> Dependencia </th> 
+                            <th> Contrato </th> 
+                            <th> Estatus </th> 
+                        </tr>
+                    `;
 
-                    for( var d = 0; d< listRegisters.paginationStep ; d++){
+                    for( var d = 0; d< listProjectsFollowUps.paginationStep ; d++){
                         if(data[d]){
-                            strTRs += setTag.tr( data[d].title, data[d].description, data[d].id );
+                            strTRs += setTag.tr( 
+                                data[d].project_title, 
+                                cities[data[d].city_id],
+                                data[d].category, 
+                                data[d].department, 
+                                data[d].contract_number, 
+                                data[d].check_stage, 
+                                data[d].project_id 
+                            );
                         }
                     }
 
@@ -330,12 +420,12 @@
                 },                                      //searchBy
                 createButtons: function( numAllRegisters, filterBy, valueSearchBy ){
                     
-                    var numOfButtons = Math.ceil( numAllRegisters/listRegisters.paginationStep ) ;
-                    listRegisters.numberOfButtons = numOfButtons ;
+                    var numOfButtons = Math.ceil( numAllRegisters/listProjectsFollowUps.paginationStep ) ;
+                    listProjectsFollowUps.numberOfButtons = numOfButtons ;
                     
                     var strAllButtons = '';
                     for(var b=0; b< numOfButtons ; b++ ){
-                        var start = b * listRegisters.paginationStep ;
+                        var start = b * listProjectsFollowUps.paginationStep ;
                         var numLebelButton = b + 1;
                         var isActive = b==0? 'active' : '';
                         strAllButtons += setTag.button( start, numLebelButton, isActive, filterBy, valueSearchBy )

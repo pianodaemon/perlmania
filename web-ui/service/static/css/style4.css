@@ -46,7 +46,7 @@ a, a:hover, a:focus {
 }
 
 i, span {
-    display: inline-block;
+    /*display: inline-block;*/
 }
 
 /* ---------------------------------------------------

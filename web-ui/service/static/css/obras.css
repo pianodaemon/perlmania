@@ -132,14 +132,14 @@ body{
 #titleFirstLink{
     cursor: pointer;
 }
-#titleDepartment{
+#titleDepartment, #titleProjectRegister, #titleSecondLink, #titleThirdLink{
     cursor: pointer;
     color:#505;
-    /*font-size: 1.5em;*/
+    font-size: 0.9em;
 }
 
 #titleEspecificacionObra{
-    /*font-size: 1.5em;*/
+    font-size: 0.9em;
     cursor: pointer;
     color:#505;
 }
@@ -150,7 +150,9 @@ body{
     display: inline;
     float: right;
 }
-
+.titleDetailProject{
+    margin-bottom: 15px !important;
+}
 
 
 
@@ -441,6 +443,7 @@ thead{
 }
 .valueee{
     display: inline;
+    font-size: 0.9em;
 }
 
 .d-sm-inline {
@@ -461,6 +464,11 @@ thead{
 }
 .tableAll:hover{
     box-shadow: 0 8px 10px #aaa !important;
+}
+#nameStatusProjectTitle{
+    text-align: right;
+    text-transform: uppercase;
+    font-size: 0.9em;
 }
 
 #table-obras {
@@ -644,7 +652,7 @@ hr{
 
 /*Form and edit*/
 .form-control{
-    /*font-size: 1.5em;*/
+    font-size: 0.9em;
     padding: 8px 13px;
 }
 .buttonsActions{
@@ -673,13 +681,29 @@ hr{
 #addRegister{
     padding: 20px;
 }
+/* Selects */
+.select2-container--default .select2-selection--single{
+    padding: 8px 13px;
+    border: 1px solid #fff;
+    border-radius: 0px;
+    height: 39px;
+}
+.select2-container {
+    border: 1px solid #ced4da;
+    border-radius: 0px;
 
+}.select2-container--default .select2-selection--single .select2-selection__rendered{
+    line-height: normal;
+}.select2-container--default .select2-selection--single .select2-selection__arrow{ 
+    height: 39px;
+}
 
 
 /** List Registers **/
 #tableRegisters{
     width: 100%;
     /*font-size: 1.4em;*/
+    font-size: 0.9em;
     margin-top: 20px;
 }
 #tableRegisters tr th{
@@ -738,6 +762,7 @@ hr{
 .obrasButtonNormal{
     padding: 5px 15px;
     /*font-size: 1.5em;*/
+    font-size: 0.9em;
     border: solid 1px #606;
     background: #fff;
     color: #606;
@@ -753,6 +778,7 @@ hr{
 
 .indicatorName{
     text-transform: capitalize;
+    font-size: 0.9em;
 }
 .rowAddRegister{
     padding: 10px;
@@ -785,6 +811,7 @@ hr{
 
 
 
+
 /** Notify **/
 .notifyjs-bootstrap-base {
     opacity: 0.85 !important;
@@ -801,7 +828,101 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
+}input[type="number"] {
+    -moz-appearance: textfield;
 }
+
+
+
+
+
+/* Follow Ups */
+.nameObraFollowUps{
+    color: #686868;
+    font-size: 1.2em;
+}
+.propertyProjectFollowUps{
+    font-size: 0.9em;
+    color: #666;
+    font-weight: 600;
+    margin-left: 10px;
+}
+.propertyProjectFollowUpsTitle{
+    font-size: 0.9em;
+    color: #686868;
+}
+
+
+
+
+
+.contractInTable{
+    white-space: nowrap;
+}
+
+
+
+
+.checkStage1{
+    color: #fff;
+    background: #fad838;
+} .checkStage2{
+    color: #fff;
+    background: #439246;
+} .checkStage3{
+    color: #fff;
+    background: #d44;
+} .checkStage4{
+    color: #fff;
+    background: #999;
+} .checkStage5{
+    color: #fff;
+    background: #9131da;
+} .checkStage6{
+    color: #fff;
+    background: #f79646;
+} .checkStage7{
+    color: #fff;
+    background: #6bd;
+}
+.checkStage1, .checkStage2, .checkStage3, .checkStage4, .checkStage5, .checkStage6, .checkStage7{
+    white-space: nowrap;
+    padding: 0px 8px;
+    border-radius: 15px;
+    display: inline-block;
+}
+
+
+
+
+
+/* Upload button */
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+.btnUp {
+    border: 1px solid gray;
+    background: white;
+    padding: 6px 25px;
+    color: #555;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+.upload-btn-wrapper input[type=file] {
+  font-size: 50px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+.upload-btn-wrapper i{
+    margin-left: 5px;
+}
+
+
+
 
 div.ui-datepicker{
  /*font-size:1.4em;*/
@@ -809,6 +930,44 @@ div.ui-datepicker{
 
 
 
-#menuComponentGraphics{
-    display: none;
+
+
+/* Graphics */
+#modalSearch .select2{
+    width: 100% !important;
+    font-size: 0.9em;
+}
+.modalSearchLabel{
+    font-weight: 400;
+    font-size: 0.86em;
+    color: #555;
+}
+.highcharts-title{
+    text-align: center;
+}
+#radioSelects{
+    margin: 29px 5px;
+    text-align: center;
+}
+#titleChartGral{
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.4em;
+    color: #666;
+}
+.linkPlots{
+    padding: 2px 21px; 
+    cursor: pointer;
+    color: #666;
+}
+.linkPlots[active]{
+    color: #43a;
+}
+.linkPlots:hover{
+    color: #43a;
+}
+#periodDateChart{
+    background: transparent;
+    border: white;
+    padding: 5px 8px;
 }
