@@ -1,10 +1,9 @@
 import json
 
-from flask import request
-from flask_restplus import Resource
-
 import dal.project
 from dal.follow_ups import project_follow_ups_model
+from flask import request
+from flask_restplus import Resource
 from genl.restplus import api
 from misc.helper import get_search_params
 from misc.helperpg import EmptySetError
@@ -73,6 +72,8 @@ class ProjectStages(Resource):
 class ProjectsWithFollowUpCollection(Resource):
     @api.param("offset", "From which record to start recording, used for pagination")
     @api.param("limit", "How many records to return")
+    @api.param("order_by", "Which field use to order the projects")
+    @api.param("order", "ASC or DESC, which ordering to use")
     @api.param("project", "The DB id of a project")
     @api.param("contract_number", "Contract number")
     @api.param("contract", "Contract DB id")
@@ -97,6 +98,9 @@ class ProjectsWithFollowUpCollection(Resource):
     def get(self):
         offset = request.args.get("offset", 0)
         limit = request.args.get("limit", 10)
+        order_by = request.args.get("order_by", "project_id")
+        order = request.args.get("order", "ASC")
+
         empty_follow_ups = request.args.get("empty_follow_ups", 1)
 
         empty_follow_ups = bool(int(empty_follow_ups))
@@ -123,7 +127,12 @@ class ProjectsWithFollowUpCollection(Resource):
         )
 
         return dal.project.paged_with_follow_ups(
-            offset, limit, search_params, empty_follow_ups=empty_follow_ups
+            offset,
+            limit,
+            order_by,
+            order,
+            search_params,
+            empty_follow_ups=empty_follow_ups,
         )
 
 

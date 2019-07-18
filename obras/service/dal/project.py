@@ -1,5 +1,4 @@
 from flask_restplus import fields
-
 from genl.restplus import api
 from misc.helperpg import EmptySetError
 
@@ -141,7 +140,12 @@ def _setup_search_criteria(search_params, joint=True):
 
 
 def paged_with_follow_ups(
-    offset=0, limit=10, search_params=None, empty_follow_ups=True
+    offset=0,
+    limit=10,
+    order_by="project_id",
+    order="ASC",
+    search_params=None,
+    empty_follow_ups=True,
 ):
     """Paginated results that include the latest status
     using the follow up to calculate them
@@ -200,6 +204,7 @@ def paged_with_follow_ups(
         ORDER BY projects.id, follow_ups.check_date DESC)
     AS temp
     {}
+    ORDER BY {} {}
     OFFSET {} LIMIT {};
     """
 
@@ -212,7 +217,7 @@ def paged_with_follow_ups(
     else:
         follow_ups_join = "JOIN"
 
-    sql = sql.format(follow_ups_join, search, offset, limit)
+    sql = sql.format(follow_ups_join, search, order_by, order, offset, limit)
 
     try:
         rows = exec_steady(sql)
