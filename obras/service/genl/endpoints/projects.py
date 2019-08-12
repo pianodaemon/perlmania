@@ -2,7 +2,7 @@ import json
 
 import dal.project
 from dal.follow_ups import project_follow_ups_model
-from flask import current_app, request
+from flask import request
 from flask_restplus import Resource
 from genl.restplus import api
 from misc.helper import get_search_params

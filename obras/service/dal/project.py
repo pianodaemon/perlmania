@@ -134,7 +134,8 @@ def _setup_search_criteria(search_params, joint=True):
     if search_params is not None:
         for field, value in search_params.items():
             if type(value) is list:
-                criteria.append(" OR ".join([f"{filters[field]} = {v}" for v in value]))
+                multiple = " OR ".join([f"{filters[field]} = {v}" for v in value])
+                criteria.append(f"({multiple})")
 
             elif filters.get(field):
                 criteria.append(f"{filters[field]} = {value}")
