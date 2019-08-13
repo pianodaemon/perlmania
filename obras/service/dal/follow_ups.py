@@ -33,12 +33,11 @@ project_follow_ups_model = api.model(
         "contract_description": fields.String(),
         "program_id": fields.Integer(),
         "initial_contracted_amount": fields.Float(),
-        "final_contracted_amount": fields.Float(),
         "contract_kickoff": fields.Date(),
         "contract_ending": fields.Date(),
-        "down_payment": fields.Date(), # Check
+        "down_payment": fields.Date(),  # Check
         "down_payment_amount": fields.Float(),
-        "ext_agreement": fields.Date(), # Check
+        "ext_agreement": fields.Date(),  # Check
         "ext_agreement_amount": fields.Float(),
         "final_contracted_amount": fields.Float(),
         "total_amount_paid": fields.Float(),
