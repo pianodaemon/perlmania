@@ -1,5 +1,4 @@
 from flask_restplus import fields
-
 from genl.restplus import api
 from misc.helperpg import EmptySetError
 
@@ -77,9 +76,9 @@ def _setup_search_criteria(search_params, joint=True):
             "department": "department_id",
             "city": "city_id",
             "check_stage": "check_stage",
-            "adjudication": "adjudication",
-            "funding": "funding",
-            "program": "program",
+            "adjudication": "adjudication_id",
+            "funding": "funding_id",
+            "program": "program_id",
             "provider": "provider_id",
         }
 
@@ -108,7 +107,7 @@ def _setup_search_criteria(search_params, joint=True):
             "check_stage": "follow_ups.check_stage",
             "adjudication": "contracts.adjudication",
             "funding": "contracts.funding",
-            "program": "contracts.funding",
+            "program": "contracts.program",
             "provider": "contracts.provider",
         }
 
@@ -134,7 +133,11 @@ def _setup_search_criteria(search_params, joint=True):
 
     if search_params is not None:
         for field, value in search_params.items():
-            if filters.get(field):
+            if type(value) is list:
+                multiple = " OR ".join([f"{filters[field]} = {v}" for v in value])
+                criteria.append(f"({multiple})")
+
+            elif filters.get(field):
                 criteria.append(f"{filters[field]} = {value}")
 
     return " AND ".join(criteria)

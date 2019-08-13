@@ -1,10 +1,9 @@
 import json
 
-from flask import request
-from flask_restplus import Resource
-
 import dal.project
 from dal.follow_ups import project_follow_ups_model
+from flask import request
+from flask_restplus import Resource
 from genl.restplus import api
 from misc.helper import get_search_params
 from misc.helperpg import EmptySetError
@@ -110,7 +109,6 @@ class ProjectsWithFollowUpCollection(Resource):
                 "category",
                 "department",
                 "city",
-                "check_stage",
                 "adjudication",
                 "funding",
                 "program",
@@ -121,6 +119,14 @@ class ProjectsWithFollowUpCollection(Resource):
                 "contract_end_date",
             ],
         )
+
+        # We should be able to filter by multiple check_stage values
+        check_stages = request.args.getlist("check_stage")
+
+        if search_params and check_stages:
+            search_params["check_stage"] = check_stages
+        elif check_stages:
+            search_params = {"check_stage": check_stages}
 
         return dal.project.paged_with_follow_ups(
             offset, limit, search_params, empty_follow_ups=empty_follow_ups
@@ -163,7 +169,6 @@ class ProjectsWithFollowUpCount(Resource):
                 "category",
                 "department",
                 "city",
-                "check_stage",
                 "adjudication",
                 "funding",
                 "program",
@@ -174,6 +179,15 @@ class ProjectsWithFollowUpCount(Resource):
                 "contract_end_date",
             ],
         )
+
+        # We should be able to filter by multiple check_stage values
+        check_stages = request.args.getlist("check_stage")
+
+        if search_params and check_stages:
+            search_params["check_stage"] = check_stages
+        elif check_stages:
+            search_params = {"check_stage": check_stages}
+
         count = dal.project.paged_with_follow_ups_count(search_params, empty_follow_ups)
 
         return {"count": count}
