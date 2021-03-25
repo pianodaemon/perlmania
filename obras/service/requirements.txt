@@ -3,5 +3,5 @@ jinja2==2.10
 Flask==1.0.2
 flask-restplus==0.11.0
 gunicorn==19.8.1
-PyYAML==3.13
+PyYAML==5.4
 psycopg2==2.8.1
